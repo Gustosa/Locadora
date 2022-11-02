@@ -47,7 +47,7 @@
               <EmptySpace max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
-                      <Component id="btnVoltarAdm" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnVoltar" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="73" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
@@ -85,7 +85,7 @@
               <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
               <Component id="btnCadastrar" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
-              <Component id="btnVoltarAdm" min="-2" max="-2" attributes="0"/>
+              <Component id="btnVoltar" min="-2" max="-2" attributes="0"/>
               <EmptySpace pref="25" max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -103,14 +103,8 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtLogin">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtLoginActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="txtSenha">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtSenhaActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnCadastrar">
       <Properties>
@@ -126,10 +120,13 @@
         <Property name="text" type="java.lang.String" value="Informe seu nome, e-mail e uma senha forte:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="btnVoltarAdm">
+    <Component class="javax.swing.JButton" name="btnVoltar">
       <Properties>
         <Property name="text" type="java.lang.String" value="Voltar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnVoltarActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lblNome">
       <Properties>

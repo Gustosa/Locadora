@@ -4,7 +4,7 @@
  */
 package br.edu.ifpr.locadora.telas;
 
-import br.edu.ifpr.locadora.DAO.UsuarioDAO;
+import br.edu.ifpr.locadora.DAOs.UsuarioDAO;
 import br.edu.ifpr.locadora.entities.Usuario;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -20,7 +20,7 @@ public class TelaCadastrarse extends javax.swing.JFrame {
     /**
      * Creates new form TelaCadastrarUsuario
      */
-    public TelaCadastrarse() {
+        public TelaCadastrarse() {
         initComponents();
     }
 
@@ -40,29 +40,16 @@ public class TelaCadastrarse extends javax.swing.JFrame {
         txtSenha = new javax.swing.JTextField();
         btnCadastrar = new javax.swing.JButton();
         cadastrarlbl = new javax.swing.JLabel();
-        btnVoltarAdm = new javax.swing.JButton();
+        btnVoltar = new javax.swing.JButton();
         lblNome = new javax.swing.JLabel();
         txtNome = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cadastrar-se");
-        setPreferredSize(new java.awt.Dimension(663, 532));
 
         loginlbl.setText("Login:");
 
         senhalbl.setText("Senha:");
-
-        txtLogin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtLoginActionPerformed(evt);
-            }
-        });
-
-        txtSenha.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtSenhaActionPerformed(evt);
-            }
-        });
 
         btnCadastrar.setText("Cadastrar");
         btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
@@ -74,7 +61,12 @@ public class TelaCadastrarse extends javax.swing.JFrame {
         cadastrarlbl.setDisplayedMnemonic('C');
         cadastrarlbl.setText("Informe seu nome, e-mail e uma senha forte:");
 
-        btnVoltarAdm.setText("Voltar");
+        btnVoltar.setText("Voltar");
+        btnVoltar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVoltarActionPerformed(evt);
+            }
+        });
 
         lblNome.setText("Nome:");
 
@@ -98,7 +90,7 @@ public class TelaCadastrarse extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btnVoltarAdm)
+                        .addComponent(btnVoltar)
                         .addGap(73, 73, 73))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(btnCadastrar)
@@ -127,21 +119,13 @@ public class TelaCadastrarse extends javax.swing.JFrame {
                 .addGap(55, 55, 55)
                 .addComponent(btnCadastrar)
                 .addGap(43, 43, 43)
-                .addComponent(btnVoltarAdm)
+                .addComponent(btnVoltar)
                 .addContainerGap(25, Short.MAX_VALUE))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void txtLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtLoginActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtLoginActionPerformed
-
-    private void txtSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSenhaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtSenhaActionPerformed
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
         String nome = txtNome.getText();
@@ -162,9 +146,16 @@ public class TelaCadastrarse extends javax.swing.JFrame {
         txtLogin.setText("");
         txtSenha.setText("");
 
-        JOptionPane.showMessageDialog(this, "Cadastrado com sucesso!", "Cadastre-se",
+        JOptionPane.showMessageDialog(this, "Cadastrado com sucesso!", "Cadastrar-se",
                 JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btnCadastrarActionPerformed
+
+    private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
+        TelaLogin tela = new TelaLogin();
+        tela.setVisible(true);
+        
+        this.setVisible(false);
+    }//GEN-LAST:event_btnVoltarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -204,7 +195,7 @@ public class TelaCadastrarse extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCadastrar;
-    private javax.swing.JButton btnVoltarAdm;
+    private javax.swing.JButton btnVoltar;
     private javax.swing.JLabel cadastrarlbl;
     private javax.swing.JSpinner jSpinner1;
     private javax.swing.JLabel lblNome;
