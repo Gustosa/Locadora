@@ -37,7 +37,7 @@ public class UsuarioDAO {
     
     public ArrayList<Usuario> selecionarUsuario() throws SQLException{
         ArrayList<Usuario> retorno = new ArrayList<>();
-        String sql = "SELECT LOGIN, NOME, SENHA ORDER BY NOME";
+        String sql = "SELECT LOGIN, NOME, SENHA FROM USUARIO";
         
         Connection con = new ConnectionFactory().getConnection();
         
