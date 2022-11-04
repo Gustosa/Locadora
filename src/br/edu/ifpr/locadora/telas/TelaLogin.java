@@ -6,6 +6,7 @@ package br.edu.ifpr.locadora.telas;
 
 import br.edu.ifpr.locadora.DAOs.UsuarioDAO;
 import br.edu.ifpr.locadora.entities.Usuario;
+import br.edu.ifpr.locadora.entities.UsuarioEstatico;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -18,8 +19,6 @@ import javax.swing.JOptionPane;
  */
 public class TelaLogin extends javax.swing.JFrame {
 
-    ArrayList<Usuario> usuarios;
-    MenuUsuario menu;
     
     /**
      * Creates new form TelaLogin
@@ -28,20 +27,6 @@ public class TelaLogin extends javax.swing.JFrame {
         initComponents();
     }
     
-    public void Comparar(Usuario usuario) throws SQLException{
-        UsuarioDAO dao = new UsuarioDAO();
-        
-        usuarios = dao.selecionarUsuario();
-        
-        if(usuarios.contains(usuario)){
-           menu.setVisible(true);
-           
-           this.setVisible(false);
-        } else {
-            JOptionPane.showMessageDialog(this, "Login/senha inválido(s)", "Login",
-                JOptionPane.ERROR_MESSAGE);
-        }
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -143,12 +128,33 @@ public class TelaLogin extends javax.swing.JFrame {
         String login = txtLogin.getText();
         String senha = txtSenha.getText();
         
-        Usuario usuario = new Usuario(login, senha);
+        UsuarioDAO dao = new UsuarioDAO();
+        Usuario usuario = null;
         
         try {
-            Comparar(usuario);
+            usuario = dao.logon(login, senha);
         } catch (SQLException ex) {
             Logger.getLogger(TelaLogin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        if (usuario == null){
+            JOptionPane.showMessageDialog(this, "Login/Senha inválido(s)");
+        }
+        
+        else {
+            UsuarioEstatico.usuario = usuario;
+            
+            if (UsuarioEstatico.usuario.getAdm() == true){
+                MenuAdm menu = new MenuAdm();
+                menu.setVisible(true);
+            
+                this.setVisible(false);
+            } else {
+                MenuUsuario menu = new MenuUsuario();
+                menu.setVisible(true);
+            
+                this.setVisible(false);
+            }
         }
     }//GEN-LAST:event_btnEntrarActionPerformed
 

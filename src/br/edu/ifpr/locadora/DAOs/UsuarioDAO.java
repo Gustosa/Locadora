@@ -57,6 +57,38 @@ public class UsuarioDAO {
         return retorno;
     }
     
+    public Usuario logon(String login, String senha) throws SQLException{
+                Usuario usuarioExiste = null;
+
+        String sql = "SELECT LOGIN, NOME, SENHA, ISADM FROM USUARIO "
+                + "WHERE LOGIN = ? AND SENHA = ?";
+        
+
+        Connection con = new ConnectionFactory().getConnection();
+        
+        PreparedStatement stmt = con.prepareStatement(sql);
+        
+        stmt.setString(1, login);
+        stmt.setString(2, senha);
+        
+        stmt.execute();
+        
+        ResultSet rs = stmt.executeQuery();
+        
+        if(rs.next() == true){
+            Usuario usuario = new Usuario();
+            
+            usuario.setLogin(rs.getString("LOGIN"));
+            usuario.setNome(rs.getString("NOME"));
+            usuario.setSenha(rs.getString("SENHA"));
+            usuario.setAdm(rs.getBoolean("ISADM"));
+            
+            usuarioExiste = usuario;
+            
+        } 
+        return usuarioExiste;
+    }
+    
     public void alterarUsuario(Usuario u) throws SQLException{
         String sql = "UPDATE USUARIO SET LOGIN = ?, NOME = ?, SENHA = ? WHERE LOGIN = ?";
         
