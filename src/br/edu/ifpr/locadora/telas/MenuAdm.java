@@ -4,6 +4,10 @@
  */
 package br.edu.ifpr.locadora.telas;
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author fabri
@@ -32,11 +36,10 @@ public class MenuAdm extends javax.swing.JFrame {
         btnCadastrarFilme = new javax.swing.JButton();
         btnAlterarFilme = new javax.swing.JButton();
         btnRemoverFilme = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btnHistoricoGeral = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Menu de Administração");
-        setPreferredSize(new java.awt.Dimension(663, 531));
 
         btnCadastarUsuario.setText("Cadastrar Usuário");
         btnCadastarUsuario.addActionListener(new java.awt.event.ActionListener() {
@@ -46,6 +49,11 @@ public class MenuAdm extends javax.swing.JFrame {
         });
 
         btnAlterarUsuario.setText("Alterar Usuário");
+        btnAlterarUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarUsuarioActionPerformed(evt);
+            }
+        });
 
         btnRemoverUsuario.setText("Remover Usuário");
         btnRemoverUsuario.addActionListener(new java.awt.event.ActionListener() {
@@ -55,12 +63,32 @@ public class MenuAdm extends javax.swing.JFrame {
         });
 
         btnCadastrarFilme.setText("Cadastrar Filme");
+        btnCadastrarFilme.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCadastrarFilmeActionPerformed(evt);
+            }
+        });
 
         btnAlterarFilme.setText("Alterar Filme");
+        btnAlterarFilme.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarFilmeActionPerformed(evt);
+            }
+        });
 
         btnRemoverFilme.setText("Remover Filme");
+        btnRemoverFilme.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoverFilmeActionPerformed(evt);
+            }
+        });
 
-        jButton1.setText("Histórico de Aluguéis");
+        btnHistoricoGeral.setText("Histórico de Aluguéis");
+        btnHistoricoGeral.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHistoricoGeralActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -86,7 +114,7 @@ public class MenuAdm extends javax.swing.JFrame {
                             .addComponent(btnRemoverFilme, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(206, 206, 206)
-                        .addComponent(jButton1)
+                        .addComponent(btnHistoricoGeral)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 210, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(45, 45, 45))
         );
@@ -100,7 +128,7 @@ public class MenuAdm extends javax.swing.JFrame {
                             .addComponent(btnCadastarUsuario)
                             .addComponent(btnAlterarUsuario))
                         .addGap(93, 93, 93)
-                        .addComponent(jButton1)
+                        .addComponent(btnHistoricoGeral)
                         .addGap(95, 95, 95)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnCadastrarFilme)
@@ -115,12 +143,73 @@ public class MenuAdm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCadastarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastarUsuarioActionPerformed
-        // TODO add your handling code here:
+        TelaCadastrarse tela = new TelaCadastrarse();
+        tela.setVisible(true);
+        
+        this.setVisible(false);
     }//GEN-LAST:event_btnCadastarUsuarioActionPerformed
 
+    private void btnAlterarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarUsuarioActionPerformed
+        TelaAlterarUsuario tela = null;
+        try {
+            tela = new TelaAlterarUsuario();
+        } catch (SQLException ex) {
+            Logger.getLogger(MenuAdm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        tela.setVisible(true);
+        
+        this.setVisible(false);
+    }//GEN-LAST:event_btnAlterarUsuarioActionPerformed
+
     private void btnRemoverUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverUsuarioActionPerformed
-        // TODO add your handling code here:
+        TelaRemoverUsuario tela = null;
+        try {
+            tela = new TelaRemoverUsuario();
+        } catch (SQLException ex) {
+            Logger.getLogger(MenuAdm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        tela.setVisible(true);
+        
+        this.setVisible(false);
     }//GEN-LAST:event_btnRemoverUsuarioActionPerformed
+
+    private void btnHistoricoGeralActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistoricoGeralActionPerformed
+        TelaHistoricoGeral tela = new TelaHistoricoGeral();
+        tela.setVisible(true);
+        
+        this.setVisible(false);
+    }//GEN-LAST:event_btnHistoricoGeralActionPerformed
+
+    private void btnCadastrarFilmeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarFilmeActionPerformed
+        TelaCadastrarFilme tela = new TelaCadastrarFilme();
+        tela.setVisible(true);
+        
+        this.setVisible(false);
+    }//GEN-LAST:event_btnCadastrarFilmeActionPerformed
+
+    private void btnAlterarFilmeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarFilmeActionPerformed
+        TelaAlterarFilme tela = null;
+        try {
+            tela = new TelaAlterarFilme();
+        } catch (SQLException ex) {
+            Logger.getLogger(MenuAdm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        tela.setVisible(true);
+        
+        this.setVisible(false);
+    }//GEN-LAST:event_btnAlterarFilmeActionPerformed
+
+    private void btnRemoverFilmeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverFilmeActionPerformed
+        TelaRemoverFilme tela = null;
+        try {
+            tela = new TelaRemoverFilme();
+        } catch (SQLException ex) {
+            Logger.getLogger(MenuAdm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        tela.setVisible(true);
+        
+        this.setVisible(false);
+    }//GEN-LAST:event_btnRemoverFilmeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -162,8 +251,8 @@ public class MenuAdm extends javax.swing.JFrame {
     private javax.swing.JButton btnAlterarUsuario;
     private javax.swing.JButton btnCadastarUsuario;
     private javax.swing.JButton btnCadastrarFilme;
+    private javax.swing.JButton btnHistoricoGeral;
     private javax.swing.JButton btnRemoverFilme;
     private javax.swing.JButton btnRemoverUsuario;
-    private javax.swing.JButton jButton1;
     // End of variables declaration//GEN-END:variables
 }

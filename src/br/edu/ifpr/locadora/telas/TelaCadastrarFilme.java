@@ -4,6 +4,16 @@
  */
 package br.edu.ifpr.locadora.telas;
 
+import br.edu.ifpr.locadora.DAOs.FilmeDAO;
+import br.edu.ifpr.locadora.entities.Filme;
+import static java.lang.Integer.parseInt;
+import static java.lang.Long.parseLong;
+import java.math.BigDecimal;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author fabri
@@ -37,6 +47,7 @@ public class TelaCadastrarFilme extends javax.swing.JFrame {
         btnMenuAdm = new javax.swing.JButton();
         lblPreco = new javax.swing.JLabel();
         txtPreco = new javax.swing.JTextField();
+        btnCadastrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cadastrar filme");
@@ -50,18 +61,29 @@ public class TelaCadastrarFilme extends javax.swing.JFrame {
         lblAvaliacao.setText("Avaliações:");
 
         btnMenuAdm.setText("Voltar");
+        btnMenuAdm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMenuAdmActionPerformed(evt);
+            }
+        });
 
         lblPreco.setText("Preço:");
+
+        btnCadastrar.setText("Cadastrar Filme");
+        btnCadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCadastrarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(94, 94, 94)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnMenuAdm)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(94, 94, 94)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(lblGenero, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(lblNomeFilme, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -76,7 +98,13 @@ public class TelaCadastrarFilme extends javax.swing.JFrame {
                             .addComponent(txtGenero, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
                             .addComponent(txtNome, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtDataLancamento, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
-                            .addComponent(txtPreco, javax.swing.GroupLayout.Alignment.LEADING))))
+                            .addComponent(txtPreco, javax.swing.GroupLayout.Alignment.LEADING)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(131, 131, 131)
+                        .addComponent(btnCadastrar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnMenuAdm)
+                        .addGap(36, 36, 36)))
                 .addContainerGap(78, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -103,13 +131,56 @@ public class TelaCadastrarFilme extends javax.swing.JFrame {
                     .addComponent(txtAvaliacoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblAvaliacao))
                 .addGap(62, 62, 62)
-                .addComponent(btnMenuAdm)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnMenuAdm)
+                    .addComponent(btnCadastrar))
                 .addGap(66, 66, 66))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
+        String nome = txtNome.getText();
+        String genero = txtGenero.getText();
+        BigDecimal preco = new BigDecimal(txtPreco.getText());
+        String dataLancamento = txtDataLancamento.getText();
+        String avaliacao = txtAvaliacoes.getText();
+        
+        int avaliacoes = parseInt(avaliacao);
+        long data = parseLong(dataLancamento);
+        
+        Filme filme = new Filme(nome, genero, preco, data, avaliacoes);
+        FilmeDAO dao = new FilmeDAO();
+        
+        try {
+            dao.cadastrarFilme(filme);
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaCadastrarFilme.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        txtNome.setText("");
+        txtGenero.setText("");
+        txtPreco.setText("");
+        txtDataLancamento.setText("");
+        txtAvaliacoes.setText("");
+        
+        JOptionPane.showMessageDialog(this, "Filme cadastrado!");
+        
+        MenuAdm tela = new MenuAdm();
+        tela.setVisible(true);
+        
+        this.setVisible(false);
+        
+    }//GEN-LAST:event_btnCadastrarActionPerformed
+
+    private void btnMenuAdmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuAdmActionPerformed
+        MenuAdm tela = new MenuAdm();
+        tela.setVisible(true);
+        
+        this.setVisible(false);
+    }//GEN-LAST:event_btnMenuAdmActionPerformed
 
     /**
      * @param args the command line arguments
@@ -137,7 +208,9 @@ public class TelaCadastrarFilme extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(TelaCadastrarFilme.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-
+        
+        
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -147,6 +220,7 @@ public class TelaCadastrarFilme extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCadastrar;
     private javax.swing.JButton btnMenuAdm;
     private javax.swing.JLabel lblAvaliacao;
     private javax.swing.JLabel lblDataLancamento;

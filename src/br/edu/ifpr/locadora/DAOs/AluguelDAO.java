@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package br.edu.ifpr.locadora.DAO;
+package br.edu.ifpr.locadora.DAOs;
 
 import br.edu.ifpr.locadora.entities.Aluguel;
 import br.edu.ifpr.locadora.entities.Filme;
