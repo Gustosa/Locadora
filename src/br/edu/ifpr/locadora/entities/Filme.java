@@ -4,19 +4,31 @@
  */
 package br.edu.ifpr.locadora.entities;
 
-import java.sql.Date;
+import java.math.BigDecimal;
+
 
 /**
  *
  * @author fabri
  */
 public class Filme {
+
+    public static String get(int i) {
+        return null;    
+    }
     
     int id;
     String nome;
-    Date data_lancamento;
+    Long data;
     String genero;
     int avaliacao;
+    BigDecimal preco;
+
+    public Filme(String nome, String genero, BigDecimal preco, long data, int avaliacoes) {
+    }
+
+    public Filme() {
+    }
 
      public int getId() {
         return id;
@@ -34,12 +46,12 @@ public class Filme {
         this.nome = nome;
     }
 
-    public Date getData_lancamento() {
-        return data_lancamento;
+    public long getData_lancamento() {
+        return data;
     }
 
-    public void setData_lancamento(Date data_lancamento) {
-        this.data_lancamento = data_lancamento;
+    public void setData_lancamento(Long data_lancamento) {
+        this.data = data_lancamento;
     }
 
     public String getGenero() {
@@ -56,5 +68,16 @@ public class Filme {
 
     public void setAvaliacao(int avaliacao) {
         this.avaliacao = avaliacao;
+    }
+
+    public void getDate() {    
+    }
+
+    public void setPreco(BigDecimal preco) {
+        this.preco = preco;
+    }
+    
+     public BigDecimal getPreco() {
+         return preco;
     }
 }

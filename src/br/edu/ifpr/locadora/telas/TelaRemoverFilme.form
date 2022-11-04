@@ -25,22 +25,26 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="82" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="lblPreco" alignment="0" max="32767" attributes="0"/>
-                  <Component id="lblDataLancamento" alignment="0" max="32767" attributes="0"/>
-                  <Component id="lblSelecionarFilme" alignment="0" pref="142" max="32767" attributes="0"/>
-                  <Component id="lblNome" alignment="0" max="32767" attributes="0"/>
-                  <Component id="lblGenero" alignment="0" max="32767" attributes="0"/>
-                  <Component id="lblAvaliacao" max="32767" attributes="0"/>
-              </Group>
-              <EmptySpace min="126" pref="126" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <Component id="btnRemover" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="72" max="-2" attributes="0"/>
-                      <Component id="btnMenuAdm" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="82" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="lblPreco" alignment="0" max="32767" attributes="0"/>
+                          <Component id="lblDataLancamento" alignment="0" max="32767" attributes="0"/>
+                          <Component id="lblSelecionarFilme" alignment="0" pref="142" max="32767" attributes="0"/>
+                          <Component id="lblNome" alignment="0" max="32767" attributes="0"/>
+                          <Component id="lblGenero" alignment="0" max="32767" attributes="0"/>
+                          <Component id="lblAvaliacao" max="32767" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="126" pref="126" max="-2" attributes="0"/>
                   </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="124" max="-2" attributes="0"/>
+                      <Component id="btnRemover" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                  </Group>
+              </Group>
+              <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="cmbRemoverFilme" pref="219" max="32767" attributes="0"/>
                       <Component id="lblNomeFilme" max="32767" attributes="0"/>
@@ -49,8 +53,12 @@
                       <Component id="lblAvaliacoesFilme" max="32767" attributes="0"/>
                       <Component id="lblPrecoFilme" alignment="0" max="32767" attributes="0"/>
                   </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
+                      <Component id="btnMenuAdm" min="-2" max="-2" attributes="0"/>
+                  </Group>
               </Group>
-              <EmptySpace min="92" pref="92" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="94" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -87,12 +95,12 @@
                   <Component id="lblAvaliacao" min="-2" max="-2" attributes="0"/>
                   <Component id="lblAvaliacoesFilme" min="-2" pref="16" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="btnMenuAdm" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnRemover" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnMenuAdm" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="67" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -127,6 +135,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Voltar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnMenuAdmActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JComboBox" name="cmbRemoverFilme">
       <Properties>
@@ -134,6 +145,9 @@
           <StringArray count="0"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmbRemoverFilmeActionPerformed"/>
+      </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
@@ -157,6 +171,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Remover"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRemoverActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

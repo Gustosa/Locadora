@@ -4,6 +4,14 @@
  */
 package br.edu.ifpr.locadora.telas;
 
+import br.edu.ifpr.locadora.DAOs.FilmeDAO;
+import br.edu.ifpr.locadora.entities.Filme;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author fabri
@@ -13,8 +21,15 @@ public class TelaRemoverFilme extends javax.swing.JFrame {
     /**
      * Creates new form TelaRemoverFilme
      */
-    public TelaRemoverFilme() {
+    public TelaRemoverFilme() throws SQLException {
         initComponents();
+        
+        FilmeDAO dao = new FilmeDAO();
+        ArrayList<Filme> filme = dao.selecionarFilme();
+        
+        for (int i = 0; i < filme.size(); i++) {
+            cmbRemoverFilme.addItem(Filme.get(i));
+        }
     }
 
     /**
@@ -55,38 +70,59 @@ public class TelaRemoverFilme extends javax.swing.JFrame {
         lblAvaliacao.setText("Avaliações:");
 
         btnMenuAdm.setText("Voltar");
+        btnMenuAdm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMenuAdmActionPerformed(evt);
+            }
+        });
+
+        cmbRemoverFilme.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbRemoverFilmeActionPerformed(evt);
+            }
+        });
 
         lblPreco.setText("Preço:");
 
         btnRemover.setText("Remover");
+        btnRemover.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRemoverActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(82, 82, 82)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblPreco, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblDataLancamento, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblSelecionarFilme, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
-                    .addComponent(lblNome, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblGenero, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblAvaliacao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(126, 126, 126)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(82, 82, 82)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblPreco, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblDataLancamento, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblSelecionarFilme, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE)
+                            .addComponent(lblNome, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblGenero, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(lblAvaliacao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(126, 126, 126))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(124, 124, 124)
                         .addComponent(btnRemover)
-                        .addGap(72, 72, 72)
-                        .addComponent(btnMenuAdm))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(cmbRemoverFilme, 0, 219, Short.MAX_VALUE)
                         .addComponent(lblNomeFilme, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lblGeneroFilme, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lblDataLancamentoFilme, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(lblAvaliacoesFilme, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblPrecoFilme, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGap(92, 92, 92))
+                        .addComponent(lblPrecoFilme, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(17, 17, 17)
+                        .addComponent(btnMenuAdm)))
+                .addGap(94, 94, 94))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -115,16 +151,52 @@ public class TelaRemoverFilme extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblAvaliacao)
                     .addComponent(lblAvaliacoesFilme, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(49, 49, 49)
+                .addGap(38, 38, 38)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnMenuAdm)
-                    .addComponent(btnRemover))
-                .addGap(56, 56, 56))
+                    .addComponent(btnRemover)
+                    .addComponent(btnMenuAdm))
+                .addGap(67, 67, 67))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed
+        Filme filmeSelect = (Filme) cmbRemoverFilme.getSelectedItem();
+        
+        FilmeDAO dao = new FilmeDAO();
+        
+        try {
+            dao.removerFilme(filmeSelect);
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaRemoverFilme.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        JOptionPane.showMessageDialog(this, "Filme removido! ");
+        
+        MenuAdm tela = new MenuAdm();
+        tela.setVisible(true);
+        
+        this.setVisible(false);
+    }//GEN-LAST:event_btnRemoverActionPerformed
+
+    private void cmbRemoverFilmeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbRemoverFilmeActionPerformed
+        Filme filmeSelect = (Filme) cmbRemoverFilme.getSelectedItem();
+        
+        lblNomeFilme.setText(filmeSelect.getNome());
+        lblGeneroFilme.setText(filmeSelect.getGenero());
+        lblPrecoFilme.setText(String.valueOf("R$ " + filmeSelect.getPreco()));
+        lblDataLancamento.setText(String.valueOf(filmeSelect.getData_lancamento()));
+        lblAvaliacoesFilme.setText(String.valueOf(filmeSelect.getAvaliacao()));
+    }//GEN-LAST:event_cmbRemoverFilmeActionPerformed
+
+    private void btnMenuAdmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuAdmActionPerformed
+        MenuAdm tela = new MenuAdm();
+        tela.setVisible(true);
+        
+        this.setVisible(false);
+    }//GEN-LAST:event_btnMenuAdmActionPerformed
 
     /**
      * @param args the command line arguments
@@ -156,7 +228,11 @@ public class TelaRemoverFilme extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TelaRemoverFilme().setVisible(true);
+                try {
+                    new TelaRemoverFilme().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(TelaRemoverFilme.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }

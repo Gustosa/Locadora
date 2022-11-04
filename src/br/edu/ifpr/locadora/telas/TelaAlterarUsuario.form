@@ -40,16 +40,20 @@
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace min="-2" pref="70" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="txtNewLogin" alignment="0" max="32767" attributes="0"/>
-                  <Component id="txtNewSenha" alignment="0" pref="179" max="32767" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace min="-2" pref="70" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="txtNewLogin" alignment="0" max="32767" attributes="0"/>
+                          <Component id="txtNewSenha" alignment="0" pref="179" max="32767" attributes="0"/>
+                          <Component id="cmbAlterarUsuario" max="32767" attributes="0"/>
+                          <Component id="txtNewNome" max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="107" max="-2" attributes="0"/>
                       <Component id="btnAlterar" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="cmbAlterarUsuario" max="32767" attributes="0"/>
-                  <Component id="jTextField1" max="32767" attributes="0"/>
               </Group>
               <EmptySpace pref="143" max="32767" attributes="0"/>
           </Group>
@@ -66,7 +70,7 @@
               <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jTextField1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="txtNewNome" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -100,9 +104,6 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtNewLogin">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtNewLoginActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lblNovaSenha">
       <Properties>
@@ -133,6 +134,9 @@
           <StringArray count="0"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmbAlterarUsuarioActionPerformed"/>
+      </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
       </AuxValues>
@@ -142,7 +146,7 @@
         <Property name="text" type="java.lang.String" value="Novo Nome:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="jTextField1">
+    <Component class="javax.swing.JTextField" name="txtNewNome">
     </Component>
   </SubComponents>
 </Form>

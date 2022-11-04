@@ -2,10 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package br.edu.ifpr.locadora.DAO;
+package br.edu.ifpr.locadora.DAOs;
 
 import br.edu.ifpr.locadora.entities.Filme;
-import br.edu.ifpr.locadora.entities.Usuario;
 import br.edu.ifpr.locadora.factories.ConnectionFactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -27,7 +26,7 @@ public class FilmeDAO {
         
         stmt.setInt(1, filme.getId());
         stmt.setString(2, filme.getNome());
-        stmt.setDate(3, filme.getData_lancamento());
+        stmt.setLong(3, filme.getData_lancamento());
         stmt.setString(4, filme.getGenero());
         stmt.setInt(5, filme.getAvaliacao());
         
@@ -51,7 +50,7 @@ public class FilmeDAO {
             Filme f = new Filme();
             f.setId(rs.getInt("ID"));
             f.setNome(rs.getString("NOME"));
-            f.setData_lancamento(rs.getDate("DATA_LANCAMENTO"));
+            f.setData_lancamento(rs.getLong("DATA_LANCAMENTO"));
             
             retorno.add(f);
         }
@@ -67,7 +66,7 @@ public class FilmeDAO {
         PreparedStatement stmt = con.prepareStatement(sql);
         
         stmt.setString(1, filme.getNome());
-        stmt.setDate(2, filme.getData_lancamento());
+        stmt.setLong(2, filme.getData_lancamento());
         stmt.setString(3, filme.getGenero());
         stmt.setInt(4, filme.getAvaliacao());
         stmt.setInt(5, filme.getId());

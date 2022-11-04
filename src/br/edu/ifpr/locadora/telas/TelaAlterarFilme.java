@@ -4,6 +4,16 @@
  */
 package br.edu.ifpr.locadora.telas;
 
+import br.edu.ifpr.locadora.DAOs.FilmeDAO;
+import br.edu.ifpr.locadora.entities.Filme;
+import java.math.BigDecimal;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
+
 /**
  *
  * @author fabri
@@ -13,8 +23,15 @@ public class TelaAlterarFilme extends javax.swing.JFrame {
     /**
      * Creates new form TelaAlterarFilme
      */
-    public TelaAlterarFilme() {
+    public TelaAlterarFilme() throws SQLException {
         initComponents();
+        
+        FilmeDAO dao = new FilmeDAO();
+        ArrayList<Filme> filme = dao.selecionarFilme();
+        
+        for (int i = 0; i < filme.size(); i++) {
+            cmbAlterarFilme.addItem(Filme.get(i));
+        }
     }
 
     /**
@@ -39,6 +56,7 @@ public class TelaAlterarFilme extends javax.swing.JFrame {
         cmbAlterarFilme = new javax.swing.JComboBox<>();
         lblPreco = new javax.swing.JLabel();
         txtNewPreco = new javax.swing.JTextField();
+        btnAlterar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Alterar Filme");
@@ -54,8 +72,26 @@ public class TelaAlterarFilme extends javax.swing.JFrame {
         lblAvaliacao.setText("Novas Avaliações:");
 
         btnMenuAdm.setText("Voltar");
+        btnMenuAdm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMenuAdmActionPerformed(evt);
+            }
+        });
+
+        cmbAlterarFilme.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbAlterarFilmeActionPerformed(evt);
+            }
+        });
 
         lblPreco.setText("Novo Preço:");
+
+        btnAlterar.setText("Alterar Filme");
+        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -65,15 +101,7 @@ public class TelaAlterarFilme extends javax.swing.JFrame {
                 .addGap(82, 82, 82)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblDataLancamento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(lblAvaliacao, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(136, 136, 136)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtNewAvaliacoes, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtNewDataLancamento, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(lblDataLancamento, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -95,11 +123,23 @@ public class TelaAlterarFilme extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(txtNewGenero, javax.swing.GroupLayout.DEFAULT_SIZE, 220, Short.MAX_VALUE)
-                                    .addComponent(txtNewPreco)))
+                                    .addComponent(txtNewPreco))))
+                        .addGap(92, 92, 92))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnAlterar)
+                            .addComponent(lblAvaliacao, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(btnMenuAdm)))
-                        .addGap(92, 92, 92))))
+                                .addGap(136, 136, 136)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtNewAvaliacoes, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtNewDataLancamento, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnMenuAdm)
+                                .addGap(132, 132, 132))))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -129,13 +169,63 @@ public class TelaAlterarFilme extends javax.swing.JFrame {
                     .addComponent(txtNewAvaliacoes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblAvaliacao))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
-                .addComponent(btnMenuAdm)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnMenuAdm)
+                    .addComponent(btnAlterar))
                 .addGap(61, 61, 61))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnMenuAdmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuAdmActionPerformed
+        MenuAdm tela = new MenuAdm();
+        tela.setVisible(true);
+        
+        this.setVisible(false);
+    }//GEN-LAST:event_btnMenuAdmActionPerformed
+
+    private void cmbAlterarFilmeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbAlterarFilmeActionPerformed
+        Filme filmeSelect = (Filme) cmbAlterarFilme.getSelectedItem();
+        
+        txtNewNome.setText(filmeSelect.getNome());
+        txtNewGenero.setText(filmeSelect.getGenero());
+        txtNewPreco.setText(String.valueOf(filmeSelect.getPreco()));
+        txtNewDataLancamento.setText(String.valueOf(filmeSelect.getData_lancamento()));
+        txtNewAvaliacoes.setText(String.valueOf(filmeSelect.getAvaliacao()));
+    }//GEN-LAST:event_cmbAlterarFilmeActionPerformed
+
+    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+        Filme filmeSelect = (Filme) cmbAlterarFilme.getSelectedItem();
+        
+        filmeSelect.setNome(filmeSelect.getNome());
+        filmeSelect.setGenero(filmeSelect.getGenero());
+        filmeSelect.setPreco(new BigDecimal(txtNewPreco.getText()));
+        filmeSelect.setData_lancamento(Long.valueOf(txtNewDataLancamento.getText()));
+        filmeSelect.setAvaliacao(filmeSelect.getAvaliacao());
+        
+        FilmeDAO dao = new FilmeDAO();
+        
+        try {
+            dao.alterarFilme(filmeSelect);
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaAlterarFilme.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            
+            txtNewNome.setText("");
+            txtNewGenero.setText("");
+            txtNewPreco.setText("");
+            txtNewDataLancamento.setText("");
+            txtNewAvaliacoes.setText("");
+            
+            JOptionPane.showMessageDialog(this, "Filme alterado!");
+        
+            MenuAdm tela = new MenuAdm();
+            tela.setVisible(true);
+        
+            this.setVisible(false);
+    }//GEN-LAST:event_btnAlterarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -167,12 +257,17 @@ public class TelaAlterarFilme extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TelaAlterarFilme().setVisible(true);
+                try {
+                    new TelaAlterarFilme().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(TelaAlterarFilme.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAlterar;
     private javax.swing.JButton btnMenuAdm;
     private javax.swing.JComboBox<String> cmbAlterarFilme;
     private javax.swing.JLabel lblAvaliacao;

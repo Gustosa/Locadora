@@ -9,6 +9,10 @@ package br.edu.ifpr.locadora.entities;
  * @author fabri
  */
 public class Usuario {
+
+    public static String get(int i) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     
     String login;
     String nome;

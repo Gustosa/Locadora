@@ -4,6 +4,15 @@
  */
 package br.edu.ifpr.locadora.telas;
 
+import br.edu.ifpr.locadora.DAOs.UsuarioDAO;
+import br.edu.ifpr.locadora.entities.Filme;
+import br.edu.ifpr.locadora.entities.Usuario;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author fabri
@@ -13,8 +22,15 @@ public class TelaAlterarUsuario extends javax.swing.JFrame {
     /**
      * Creates new form TelaAlterarUsuario
      */
-    public TelaAlterarUsuario() {
+    public TelaAlterarUsuario() throws SQLException {
         initComponents();
+        
+        UsuarioDAO dao = new UsuarioDAO();
+        ArrayList<Usuario> usuario = dao.selecionarUsuario();
+        
+        for (int i = 0; i < usuario.size(); i++) {
+            cmbAlterarUsuario.addItem(Filme.get(i));
+        }
     }
 
     /**
@@ -35,7 +51,7 @@ public class TelaAlterarUsuario extends javax.swing.JFrame {
         btnMenuAdm = new javax.swing.JButton();
         cmbAlterarUsuario = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtNewNome = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Alterar Usuário");
@@ -43,12 +59,6 @@ public class TelaAlterarUsuario extends javax.swing.JFrame {
         lblUsuario.setText("Selecione um usuário:");
 
         lblLoginNovo.setText("Novo Login:");
-
-        txtNewLogin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNewLoginActionPerformed(evt);
-            }
-        });
 
         lblNovaSenha.setText("Nova Senha:");
 
@@ -63,6 +73,12 @@ public class TelaAlterarUsuario extends javax.swing.JFrame {
         btnMenuAdm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMenuAdmActionPerformed(evt);
+            }
+        });
+
+        cmbAlterarUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbAlterarUsuarioActionPerformed(evt);
             }
         });
 
@@ -84,15 +100,17 @@ public class TelaAlterarUsuario extends javax.swing.JFrame {
                                 .addComponent(lblLoginNovo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(lblNovaSenha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)))))
-                .addGap(70, 70, 70)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtNewLogin)
-                    .addComponent(txtNewSenha, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addComponent(btnAlterar))
-                    .addComponent(cmbAlterarUsuario, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTextField1))
+                        .addGap(70, 70, 70)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtNewLogin)
+                            .addComponent(txtNewSenha, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
+                            .addComponent(cmbAlterarUsuario, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtNewNome)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(107, 107, 107)
+                        .addComponent(btnAlterar)))
                 .addContainerGap(143, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -105,7 +123,7 @@ public class TelaAlterarUsuario extends javax.swing.JFrame {
                 .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNewNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblLoginNovo)
@@ -125,17 +143,49 @@ public class TelaAlterarUsuario extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtNewLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNewLoginActionPerformed
+    private void btnMenuAdmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuAdmActionPerformed
+        MenuAdm tela = new MenuAdm();
+        tela.setVisible(true);
+        
+        this.setVisible(false);
+    }//GEN-LAST:event_btnMenuAdmActionPerformed
 
-    }//GEN-LAST:event_txtNewLoginActionPerformed
+    private void cmbAlterarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbAlterarUsuarioActionPerformed
+        Usuario usuarioSelect = (Usuario) cmbAlterarUsuario.getSelectedItem();
+        
+        txtNewNome.setText(usuarioSelect.getNome());
+        txtNewLogin.setText(usuarioSelect.getLogin());
+        txtNewSenha.setText(usuarioSelect.getSenha());
+        
+    }//GEN-LAST:event_cmbAlterarUsuarioActionPerformed
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+        Usuario usuarioSelect = (Usuario) cmbAlterarUsuario.getSelectedItem();
+        
+        usuarioSelect.setNome(usuarioSelect.getNome());
+        usuarioSelect.setLogin(usuarioSelect.getLogin());
+        usuarioSelect.setSenha(usuarioSelect.getSenha());
+        
+        UsuarioDAO dao = new UsuarioDAO();
+        
+        try {
+            dao.alterarUsuario(usuarioSelect);
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaAlterarUsuario.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        txtNewNome.setText("");
+        txtNewLogin.setText("");
+        txtNewSenha.setText("");
 
+        JOptionPane.showMessageDialog(this, "Usuário alterado!");
+        
+        MenuAdm tela = new MenuAdm();
+        tela.setVisible(true);
+        
+        this.setVisible(false);
+            
     }//GEN-LAST:event_btnAlterarActionPerformed
-
-    private void btnMenuAdmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuAdmActionPerformed
-
-    }//GEN-LAST:event_btnMenuAdmActionPerformed
 
     /**
      * @param args the command line arguments
@@ -167,7 +217,11 @@ public class TelaAlterarUsuario extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TelaAlterarUsuario().setVisible(true);
+                try {
+                    new TelaAlterarUsuario().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(TelaAlterarUsuario.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
@@ -177,11 +231,11 @@ public class TelaAlterarUsuario extends javax.swing.JFrame {
     private javax.swing.JButton btnMenuAdm;
     private javax.swing.JComboBox<String> cmbAlterarUsuario;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lblLoginNovo;
     private javax.swing.JLabel lblNovaSenha;
     private javax.swing.JLabel lblUsuario;
     private javax.swing.JTextField txtNewLogin;
+    private javax.swing.JTextField txtNewNome;
     private javax.swing.JTextField txtNewSenha;
     // End of variables declaration//GEN-END:variables
 }
