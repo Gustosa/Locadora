@@ -89,6 +89,7 @@ public class UsuarioDAO {
         return usuarioExiste;
     }
     
+
     public void alterarUsuario(Usuario u) throws SQLException{
         String sql = "UPDATE USUARIO SET LOGIN = ?, NOME = ?, SENHA = ? WHERE LOGIN = ?";
         
