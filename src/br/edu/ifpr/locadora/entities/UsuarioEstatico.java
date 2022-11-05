@@ -4,17 +4,10 @@
  */
 package br.edu.ifpr.locadora.entities;
 
-import java.util.Date;
-
 /**
  *
  * @author fabri
  */
-public class Promocao {
-    
-    int id;
-    Filme filme;
-    int desconto;
-    Date data_inicio;
-    Date data_fim;
+public class UsuarioEstatico {
+    public static Usuario usuario;
 }
