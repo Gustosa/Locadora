@@ -12,10 +12,6 @@ import java.math.BigDecimal;
  * @author fabri
  */
 public class Filme {
-
-    public static String get(int i) {
-        return null;    
-    }
     
     int id;
     String nome;

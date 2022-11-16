@@ -128,12 +128,12 @@ public class TelaCadastrarse extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        String nome = txtNome.getText();
         String login = txtLogin.getText();
+        String nome = txtNome.getText();
         String senha = txtSenha.getText();
         boolean adm = false;
 
-        Usuario usuario = new Usuario(nome, login, senha, adm);
+        Usuario usuario = new Usuario(login, nome, senha, adm);
         UsuarioDAO dao = new UsuarioDAO();
         
         try {

@@ -30,7 +30,7 @@ public class TelaAlterarFilme extends javax.swing.JFrame {
         ArrayList<Filme> filme = dao.selecionarFilme();
         
         for (int i = 0; i < filme.size(); i++) {
-            cmbAlterarFilme.addItem(Filme.get(i));
+            cmbAlterarFilme.addItem(filme.get(i));
         }
     }
 
@@ -269,7 +269,7 @@ public class TelaAlterarFilme extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterar;
     private javax.swing.JButton btnMenuAdm;
-    private javax.swing.JComboBox<String> cmbAlterarFilme;
+    private javax.swing.JComboBox<Filme> cmbAlterarFilme;
     private javax.swing.JLabel lblAvaliacao;
     private javax.swing.JLabel lblDataLancamento;
     private javax.swing.JLabel lblGenero;
