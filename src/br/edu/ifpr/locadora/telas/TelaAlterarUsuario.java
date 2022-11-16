@@ -29,7 +29,7 @@ public class TelaAlterarUsuario extends javax.swing.JFrame {
         ArrayList<Usuario> usuario = dao.selecionarUsuario();
         
         for (int i = 0; i < usuario.size(); i++) {
-            cmbAlterarUsuario.addItem(Filme.get(i));
+            cmbAlterarUsuario.addItem(usuario.get(i));
         }
     }
 
@@ -229,7 +229,7 @@ public class TelaAlterarUsuario extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterar;
     private javax.swing.JButton btnMenuAdm;
-    private javax.swing.JComboBox<String> cmbAlterarUsuario;
+    private javax.swing.JComboBox<Usuario> cmbAlterarUsuario;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblLoginNovo;
     private javax.swing.JLabel lblNovaSenha;

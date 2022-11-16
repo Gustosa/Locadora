@@ -28,7 +28,7 @@ public class TelaRemoverFilme extends javax.swing.JFrame {
         ArrayList<Filme> filme = dao.selecionarFilme();
         
         for (int i = 0; i < filme.size(); i++) {
-            cmbRemoverFilme.addItem(Filme.get(i));
+            cmbRemoverFilme.addItem(filme.get(i));
         }
     }
 
@@ -240,7 +240,7 @@ public class TelaRemoverFilme extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnMenuAdm;
     private javax.swing.JButton btnRemover;
-    private javax.swing.JComboBox<String> cmbRemoverFilme;
+    private javax.swing.JComboBox<Filme> cmbRemoverFilme;
     private javax.swing.JLabel lblAvaliacao;
     private javax.swing.JLabel lblAvaliacoesFilme;
     private javax.swing.JLabel lblDataLancamento;

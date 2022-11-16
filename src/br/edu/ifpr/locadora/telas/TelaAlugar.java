@@ -4,6 +4,17 @@
  */
 package br.edu.ifpr.locadora.telas;
 
+import br.edu.ifpr.locadora.DAOs.FilmeDAO;
+import br.edu.ifpr.locadora.entities.Filme;
+import java.math.BigDecimal;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author gusta
@@ -13,8 +24,15 @@ public class TelaAlugar extends javax.swing.JFrame {
     /**
      * Creates new form TelaAlugar
      */
-    public TelaAlugar() {
+    public TelaAlugar() throws SQLException {
         initComponents();
+        
+        FilmeDAO dao = new FilmeDAO();
+        ArrayList<Filme> filmes = dao.selecionarFilme();
+        
+        for (int i = 0; i < filmes.size(); i++) {
+            cmbFilme.addItem(filmes.get(i));
+        }
     }
 
     /**
@@ -27,12 +45,12 @@ public class TelaAlugar extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jTextField1 = new javax.swing.JTextField();
+        cmbFilme = new javax.swing.JComboBox<>();
+        txtDinheiro = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        lblTrocoFilme = new javax.swing.JLabel();
+        btnAlugar = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         lblDataLancamentoFilme = new javax.swing.JLabel();
@@ -51,9 +69,9 @@ public class TelaAlugar extends javax.swing.JFrame {
 
         jLabel1.setText("Por favor, selecione um filme:");
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        txtDinheiro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                txtDinheiroActionPerformed(evt);
             }
         });
 
@@ -61,9 +79,14 @@ public class TelaAlugar extends javax.swing.JFrame {
 
         jLabel3.setText("Seu troco:");
 
-        jLabel4.setText("troco");
+        lblTrocoFilme.setText("troco");
 
-        jButton1.setText("Alugar");
+        btnAlugar.setText("Alugar");
+        btnAlugar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlugarActionPerformed(evt);
+            }
+        });
 
         jLabel5.setText("O filme ficará alugado durante uma semana!");
 
@@ -85,7 +108,7 @@ public class TelaAlugar extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(281, 281, 281)
-                .addComponent(jButton1)
+                .addComponent(btnAlugar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton2)
                 .addGap(54, 54, 54))
@@ -99,19 +122,19 @@ public class TelaAlugar extends javax.swing.JFrame {
                         .addComponent(jLabel5))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(155, 155, 155)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(cmbFilme, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(120, 120, 120)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtDinheiro, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(43, 43, 43)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblAvaliacoesFilme, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel4)))))
+                                .addComponent(lblTrocoFilme, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(103, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(86, 86, 86)
@@ -144,7 +167,7 @@ public class TelaAlugar extends javax.swing.JFrame {
                 .addGap(46, 46, 46)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cmbFilme, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(78, 78, 78)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
@@ -165,16 +188,16 @@ public class TelaAlugar extends javax.swing.JFrame {
                         .addComponent(lblAvaliacoesFilme, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtDinheiro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
                     .addComponent(jLabel3)
-                    .addComponent(jLabel4))
+                    .addComponent(lblTrocoFilme))
                 .addGap(38, 38, 38)
                 .addComponent(jLabel5)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(46, 46, 46)
-                        .addComponent(jButton1)
+                        .addComponent(btnAlugar)
                         .addGap(68, 68, 68))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -193,9 +216,39 @@ public class TelaAlugar extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void txtDinheiroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDinheiroActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_txtDinheiroActionPerformed
+
+    private void btnAlugarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlugarActionPerformed
+        Filme filme = (Filme) cmbFilme.getSelectedItem();
+        
+        lblNomeFilme.setText(filme.getNome());
+        lblGeneroFilme.setText(filme.getGenero());
+        lblPrecoFilme.setText(String.valueOf(filme.getPreco()));
+        lblDataLancamentoFilme.setText(String.valueOf(filme.getData_lancamento()));
+        lblAvaliacoesFilme.setText(String.valueOf(filme.getAvaliacao()));
+        
+        BigDecimal dinheiro = new BigDecimal(txtDinheiro.getText()); 
+        BigDecimal troco = dinheiro.subtract(filme.getPreco());
+        lblTrocoFilme.setText("R$ " + String.valueOf(troco));
+        
+        if(dinheiro.compareTo(filme.getPreco()) == -1){
+            JOptionPane.showMessageDialog(this, "Por favor, insira a quantidade correta de dinheiro.", "Alugar Filme",
+                JOptionPane.ERROR_MESSAGE);
+                        lblTrocoFilme.setText("Ainda falta dinheiro!");
+
+        }
+        
+        else{
+            Date dt = new Date();
+            
+            Calendar c = Calendar.getInstance().add(Calendar.DAY_OF_MONTH, 7);
+            System.out.println(c);
+        }
+        
+        
+    }//GEN-LAST:event_btnAlugarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -227,21 +280,23 @@ public class TelaAlugar extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new TelaAlugar().setVisible(true);
+                try {
+                    new TelaAlugar().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(TelaAlugar.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnAlugar;
+    private javax.swing.JComboBox<Filme> cmbFilme;
     private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lblAvaliacao;
     private javax.swing.JLabel lblAvaliacoesFilme;
     private javax.swing.JLabel lblDataLancamento;
@@ -252,5 +307,7 @@ public class TelaAlugar extends javax.swing.JFrame {
     private javax.swing.JLabel lblNomeFilme;
     private javax.swing.JLabel lblPreco;
     private javax.swing.JLabel lblPrecoFilme;
+    private javax.swing.JLabel lblTrocoFilme;
+    private javax.swing.JTextField txtDinheiro;
     // End of variables declaration//GEN-END:variables
 }

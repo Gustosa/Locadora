@@ -25,10 +25,10 @@ public class TelaRemoverUsuario extends javax.swing.JFrame {
         initComponents();
         
         UsuarioDAO dao = new UsuarioDAO();
-        ArrayList<Usuario> usuario = dao.selecionarUsuario();
-       
-        for (int i = 0; i < usuario.size(); i++) {
-            cmbRemoverUsuario.addItem(Usuario.get(i));
+        ArrayList<Usuario> usuarios = dao.selecionarUsuario();
+        
+        for (int i = 0; i < usuarios.size(); i++) {
+            cmbRemoverUsuario.addItem(usuarios.get(i));
         }
     }
 
@@ -211,7 +211,7 @@ public class TelaRemoverUsuario extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnMenuAdm;
     private javax.swing.JButton btnRemoverUsuario;
-    private javax.swing.JComboBox<String> cmbRemoverUsuario;
+    private javax.swing.JComboBox<Usuario> cmbRemoverUsuario;
     private javax.swing.JLabel lblLoginUsuario;
     private javax.swing.JLabel lblNomeUsuario;
     private javax.swing.JLabel lblUsuario;

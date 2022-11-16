@@ -53,7 +53,7 @@ public class UsuarioDAO {
             
             retorno.add(u);
         }
-        
+                
         return retorno;
     }
     
@@ -85,9 +85,9 @@ public class UsuarioDAO {
             
             usuarioExiste = usuario;
             
-        } 
+        } System.out.print(usuarioExiste);
         return usuarioExiste;
-    }
+    } 
     
 
     public void alterarUsuario(Usuario u) throws SQLException{
