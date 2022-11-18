@@ -132,10 +132,11 @@ public class TelaLogin extends javax.swing.JFrame {
         Usuario usuario = null;
         
         try {
-            usuario = dao.logon(login, senha);
+            usuario = dao.logar(login, senha);
         } catch (SQLException ex) {
             Logger.getLogger(TelaLogin.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
         
         if (usuario == null){
             JOptionPane.showMessageDialog(this, "Login/Senha inválido(s)");
@@ -144,7 +145,7 @@ public class TelaLogin extends javax.swing.JFrame {
         else {
             UsuarioEstatico.usuario = usuario;
             
-            if (UsuarioEstatico.usuario.getAdm() == true){
+            if (UsuarioEstatico.usuario.getIsAdm() == true){
                 MenuAdm menu = new MenuAdm();
                 menu.setVisible(true);
             
@@ -156,7 +157,7 @@ public class TelaLogin extends javax.swing.JFrame {
                 this.setVisible(false);
             }
         }
-    }                                         
+    }                                    
 
     private void btnCadastrarseActionPerformed(java.awt.event.ActionEvent evt) {                                               
         TelaCadastrarse tela = new TelaCadastrarse();

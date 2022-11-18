@@ -54,11 +54,13 @@ public class Usuario {
         this.senha = senha;
     }
 
-    public boolean getAdm() {
+    public boolean getIsAdm() {
         return isAdm;
     }
 
-    public void setAdm(boolean adm) {
-        this.isAdm = adm;
+    public void setIsAdm(boolean isAdm) {
+        this.isAdm = isAdm;
     }
+
+    
 }
