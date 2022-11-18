@@ -22,6 +22,10 @@ public class Aluguel {
         return id;
     }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public Usuario getUsuario() {
         return usuario;
     }
@@ -53,4 +57,5 @@ public class Aluguel {
     public void setData_fim(Date data_fim) {
         this.data_fim = data_fim;
     }
+
 }

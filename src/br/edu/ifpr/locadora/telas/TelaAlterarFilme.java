@@ -9,6 +9,7 @@ import br.edu.ifpr.locadora.entities.Filme;
 import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.sql.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -202,7 +203,7 @@ public class TelaAlterarFilme extends javax.swing.JFrame {
         filmeSelect.setNome(filmeSelect.getNome());
         filmeSelect.setGenero(filmeSelect.getGenero());
         filmeSelect.setPreco(new BigDecimal(txtNewPreco.getText()));
-        filmeSelect.setData_lancamento(Long.valueOf(txtNewDataLancamento.getText()));
+        filmeSelect.setData_lancamento(Date.valueOf(txtNewDataLancamento.getText()));
         filmeSelect.setAvaliacao(filmeSelect.getAvaliacao());
         
         FilmeDAO dao = new FilmeDAO();
