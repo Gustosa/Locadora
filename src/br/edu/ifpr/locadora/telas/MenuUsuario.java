@@ -4,6 +4,10 @@
  */
 package br.edu.ifpr.locadora.telas;
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author gusta
@@ -138,11 +142,22 @@ public class MenuUsuario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAlugarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlugarActionPerformed
-        // TODO add your handling code here:
+        TelaAlugar tela = null;
+        try {
+            tela = new TelaAlugar();
+        } catch (SQLException ex) {
+            Logger.getLogger(MenuUsuario.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        tela.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btnAlugarActionPerformed
 
     private void btnHistoricoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistoricoActionPerformed
         TelaHistoricoUsuario tela = new TelaHistoricoUsuario();
+        
+        tela.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btnHistoricoActionPerformed
 
     /**

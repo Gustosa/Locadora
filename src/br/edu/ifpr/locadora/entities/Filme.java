@@ -15,7 +15,7 @@ public class Filme {
     
     int id;
     String nome;
-    Long data;
+    long data;
     String genero;
     int avaliacao;
     BigDecimal preco;
@@ -46,7 +46,7 @@ public class Filme {
         return data;
     }
 
-    public void setData_lancamento(Long data_lancamento) {
+    public void setData_lancamento(long data_lancamento) {
         this.data = data_lancamento;
     }
 

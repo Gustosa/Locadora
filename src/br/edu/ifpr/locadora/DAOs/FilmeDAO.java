@@ -18,17 +18,16 @@ import java.util.ArrayList;
  */
 public class FilmeDAO {
     public void cadastrarFilme(Filme filme) throws SQLException{
-        String sql = "INSERT INTO FILME (ID, NOME, DATA_LANCAMENTO, GENERO, AVALIACAO) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO FILME (NOME, DATA_LANCAMENTO, GENERO, AVALIACAO) VALUES (?, ?, ?, ?)";
         
         Connection con = new ConnectionFactory().getConnection();
         
         PreparedStatement stmt = con.prepareStatement(sql);
         
-        stmt.setInt(1, filme.getId());
-        stmt.setString(2, filme.getNome());
-        stmt.setLong(3, filme.getData_lancamento());
-        stmt.setString(4, filme.getGenero());
-        stmt.setInt(5, filme.getAvaliacao());
+        stmt.setString(1, filme.getNome());
+        stmt.setLong(2, filme.getData_lancamento());
+        stmt.setString(3, filme.getGenero());
+        stmt.setInt(4, filme.getAvaliacao());
         
         stmt.execute();
         
@@ -38,7 +37,7 @@ public class FilmeDAO {
     
      public ArrayList<Filme> selecionarFilme() throws SQLException{
         ArrayList<Filme> retorno = new ArrayList<>();
-        String sql = "SELECT ID, NOME, DATA_LANCAMENTO, GENERO, AVALIACAO";
+        String sql = "SELECT ID, NOME, DATA_LANCAMENTO, GENERO, AVALIACAO FROM FILME";
         
         Connection con = new ConnectionFactory().getConnection();
         
@@ -51,6 +50,9 @@ public class FilmeDAO {
             f.setId(rs.getInt("ID"));
             f.setNome(rs.getString("NOME"));
             f.setData_lancamento(rs.getLong("DATA_LANCAMENTO"));
+            f.setGenero(rs.getString("GENERO"));
+            f.setAvaliacao(rs.getInt("AVALIACAO"));
+
             
             retorno.add(f);
         }
