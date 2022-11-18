@@ -17,13 +17,13 @@ public class Usuario {
     String login;
     String nome;
     String senha;
-    boolean adm;
+    boolean isAdm;
 
-    public Usuario(String login, String nome, String senha, boolean adm) {
+    public Usuario(String login, String nome, String senha, boolean isAdm) {
         this.login = login;
         this.nome = nome;
         this.senha = senha;
-        this.adm = adm;
+        this.isAdm = isAdm;
     }
 
     public Usuario() {
@@ -58,11 +58,13 @@ public class Usuario {
         this.senha = senha;
     }
 
-    public boolean getAdm() {
-        return adm;
+    public boolean getIsAdm() {
+        return isAdm;
     }
 
-    public void setAdm(boolean adm) {
-        this.adm = adm;
+    public void setIsAdm(boolean isAdm) {
+        this.isAdm = isAdm;
     }
+
+    
 }
