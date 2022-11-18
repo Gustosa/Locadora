@@ -5,12 +5,15 @@
 package br.edu.ifpr.locadora.telas;
 
 import br.edu.ifpr.locadora.DAOs.FilmeDAO;
+import br.edu.ifpr.locadora.entities.Aluguel;
 import br.edu.ifpr.locadora.entities.Filme;
+import br.edu.ifpr.locadora.entities.UsuarioEstatico;
 import java.math.BigDecimal;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
+import java.sql.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -222,6 +225,7 @@ public class TelaAlugar extends javax.swing.JFrame {
 
     private void btnAlugarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlugarActionPerformed
         Filme filme = (Filme) cmbFilme.getSelectedItem();
+        Aluguel aluguel = new Aluguel();
         
         lblNomeFilme.setText(filme.getNome());
         lblGeneroFilme.setText(filme.getGenero());
@@ -241,10 +245,17 @@ public class TelaAlugar extends javax.swing.JFrame {
         }
         
         else{
-            Date dt = new Date();
+            aluguel.setUsuario(UsuarioEstatico.usuario);
+            aluguel.setFilme(filme);
+
+            long millis = System.currentTimeMillis();
+            Date data_inicio = new Date(millis);
             
-            Calendar c = Calendar.getInstance().add(Calendar.DAY_OF_MONTH, 7);
-            System.out.println(c);
+            SimpleDateFormat anoFormato = new SimpleDateFormat("dd-mm-yyyy");
+            anoFormato.format(data_inicio);
+            
+            aluguel.setData_inicio(data_inicio);
+
         }
         
         

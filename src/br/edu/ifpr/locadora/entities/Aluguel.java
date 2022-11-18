@@ -22,10 +22,6 @@ public class Aluguel {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public Usuario getUsuario() {
         return usuario;
     }
