@@ -87,52 +87,18 @@ public class UsuarioDAO {
                 
         return retorno;
     }
-
-<<<<<<< HEAD
-    public void alterarUsuario(Usuario usuario) throws SQLException{
-=======
-        String sql = "SELECT LOGIN, NOME, SENHA, ISADM FROM USUARIO "
-                + "WHERE LOGIN = ? AND SENHA = ?";
-        
-
-        Connection con = new ConnectionFactory().getConnection();
-        
-        PreparedStatement stmt = con.prepareStatement(sql);
-        
-        stmt.setString(1, login);
-        stmt.setString(2, senha);
-        
-        stmt.execute();
-        
-        ResultSet rs = stmt.executeQuery();
-        
-        if(rs.next() == true){
-            Usuario usuario = new Usuario();
-            
-            usuario.setLogin(rs.getString("LOGIN"));
-            usuario.setNome(rs.getString("NOME"));
-            usuario.setSenha(rs.getString("SENHA"));
-            usuario.setAdm(rs.getBoolean("ISADM"));
-            
-            usuarioExiste = usuario;
-            
-        } System.out.print(usuarioExiste);
-        return usuarioExiste;
-    } 
     
-
     public void alterarUsuario(Usuario u) throws SQLException{
->>>>>>> 5ea3fb0ed5575414e4f6cd3cd90fe0473108fb4e
         String sql = "UPDATE USUARIO SET LOGIN = ?, NOME = ?, SENHA = ? WHERE LOGIN = ?";
         
         Connection con = new ConnectionFactory().getConnection();
         
         PreparedStatement stmt = con.prepareStatement(sql);
         
-        stmt.setString(1, usuario.getLogin());
-        stmt.setString(2, usuario.getNome());
-        stmt.setString(3, usuario.getSenha());
-        stmt.setString(4, usuario.getLogin());
+        stmt.setString(1, u.getLogin());
+        stmt.setString(2, u.getNome());
+        stmt.setString(3, u.getSenha());
+        stmt.setString(4, u.getLogin());
         
         stmt.execute();
         
