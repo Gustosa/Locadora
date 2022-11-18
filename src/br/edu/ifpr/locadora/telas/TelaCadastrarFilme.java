@@ -10,6 +10,8 @@ import static java.lang.Integer.parseInt;
 import static java.lang.Long.parseLong;
 import java.math.BigDecimal;
 import java.sql.SQLException;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -150,8 +152,13 @@ public class TelaCadastrarFilme extends javax.swing.JFrame {
         
         int avaliacoes = parseInt(avaliacao);
         long data = parseLong(dataLancamento);
+        Date date = new Date(data);
         
-        Filme filme = new Filme(nome, genero, preco, data, avaliacoes);
+        SimpleDateFormat anoFormato = new SimpleDateFormat("yyyy");
+            anoFormato.format(date);
+            
+        
+        Filme filme = new Filme(nome, genero, preco, date, avaliacoes);
         FilmeDAO dao = new FilmeDAO();
         
         try {
