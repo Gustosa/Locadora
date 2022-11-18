@@ -9,10 +9,6 @@ package br.edu.ifpr.locadora.entities;
  * @author fabri
  */
 public class Usuario {
-
-    public static String get(int i) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
     
     String login;
     String nome;
@@ -58,12 +54,21 @@ public class Usuario {
         this.senha = senha;
     }
 
+<<<<<<< HEAD
     public boolean getIsAdm() {
         return isAdm;
     }
 
     public void setIsAdm(boolean isAdm) {
         this.isAdm = isAdm;
+=======
+    public boolean getAdm() {
+        return isAdm;
+    }
+
+    public void setAdm(boolean adm) {
+        this.isAdm = adm;
+>>>>>>> 5ea3fb0ed5575414e4f6cd3cd90fe0473108fb4e
     }
 
     
