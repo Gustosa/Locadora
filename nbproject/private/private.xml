@@ -3,6 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
+            <file>file:/C:/Users/gusta/Documents/NetBeansProjects/Locadora/src/br/edu/ifpr/locadora/telas/TelaLogin.java</file>
+            <file>file:/C:/Users/gusta/Documents/NetBeansProjects/Locadora/src/br/edu/ifpr/locadora/DAOs/UsuarioDAO.java</file>
+            <file>file:/C:/Users/gusta/Documents/NetBeansProjects/Locadora/src/br/edu/ifpr/locadora/entities/UsuarioEstatico.java</file>
+=======
             <file>file:/C:/Users/fabri/OneDrive/Documentos/NetBeansProjects/Locadora/src/br/edu/ifpr/locadora/telas/MenuAdm.java</file>
             <file>file:/C:/Users/fabri/OneDrive/Documentos/NetBeansProjects/Locadora/src/br/edu/ifpr/locadora/DAOs/FilmeDAO.java</file>
             <file>file:/C:/Users/fabri/OneDrive/Documentos/NetBeansProjects/Locadora/src/br/edu/ifpr/locadora/telas/TelaCadastrarFilme.java</file>
@@ -14,6 +19,7 @@
             <file>file:/C:/Users/fabri/OneDrive/Documentos/NetBeansProjects/Locadora/src/br/edu/ifpr/locadora/telas/MenuUsuario.java</file>
             <file>file:/C:/Users/fabri/OneDrive/Documentos/NetBeansProjects/Locadora/src/br/edu/ifpr/locadora/DAOs/UsuarioDAO.java</file>
             <file>file:/C:/Users/fabri/OneDrive/Documentos/NetBeansProjects/Locadora/src/br/edu/ifpr/locadora/telas/TelaLogin.java</file>
+>>>>>>> 5ea3fb0ed5575414e4f6cd3cd90fe0473108fb4e
         </group>
     </open-files>
 </project-private>

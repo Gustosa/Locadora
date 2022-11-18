@@ -16,7 +16,9 @@ public class NewClass {
         
         Calendar c = Calendar.getInstance();
         c.add(Calendar.DAY_OF_MONTH, 7);
+
         //c.getTimeInMillis()
+        
         System.out.println(c);
     }
 }
