@@ -186,7 +186,7 @@ public class TelaRemoverFilme extends javax.swing.JFrame {
         
         lblNomeFilme.setText(filmeSelect.getNome());
         lblGeneroFilme.setText(filmeSelect.getGenero());
-        lblPrecoFilme.setText(String.valueOf("R$ " + filmeSelect.getPreco()));
+        lblPrecoFilme.setText(String.valueOf("R$ " + filmeSelect.getValor()));
         lblDataLancamento.setText(String.valueOf(filmeSelect.getData_lancamento()));
         lblAvaliacoesFilme.setText(String.valueOf(filmeSelect.getAvaliacao()));
     }//GEN-LAST:event_cmbRemoverFilmeActionPerformed
