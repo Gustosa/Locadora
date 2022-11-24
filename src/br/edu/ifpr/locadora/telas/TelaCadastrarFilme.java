@@ -146,7 +146,7 @@ public class TelaCadastrarFilme extends javax.swing.JFrame {
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
         String nome = txtNome.getText();
         String genero = txtGenero.getText();
-        BigDecimal preco = new BigDecimal(txtPreco.getText());
+        BigDecimal valor = new BigDecimal(txtPreco.getText());
         String dataLancamento = txtDataLancamento.getText();
         String avaliacao = txtAvaliacoes.getText();
         
@@ -158,7 +158,7 @@ public class TelaCadastrarFilme extends javax.swing.JFrame {
             anoFormato.format(date);
             
         
-        Filme filme = new Filme(nome, genero, preco, date, avaliacoes);
+        Filme filme = new Filme(nome, date, genero, avaliacoes, valor );
         FilmeDAO dao = new FilmeDAO();
         
         try {

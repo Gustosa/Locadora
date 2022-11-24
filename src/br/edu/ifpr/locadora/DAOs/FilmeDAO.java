@@ -6,6 +6,7 @@ package br.edu.ifpr.locadora.DAOs;
 
 import br.edu.ifpr.locadora.entities.Filme;
 import br.edu.ifpr.locadora.factories.ConnectionFactory;
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,7 +19,7 @@ import java.util.ArrayList;
  */
 public class FilmeDAO {
     public void cadastrarFilme(Filme filme) throws SQLException{
-        String sql = "INSERT INTO FILME (NOME, GENERO, DATA_LANCAMENTO, AVALIACAO) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO FILME (NOME, GENERO, DATA_LANCAMENTO, AVALIACAO, VALOR) VALUES (?, ?, ?, ?, ?)";
         
         Connection con = new ConnectionFactory().getConnection();
         
@@ -28,6 +29,7 @@ public class FilmeDAO {
         stmt.setString(2, filme.getGenero());
         stmt.setDate(3, filme.getData_lancamento());
         stmt.setInt(4, filme.getAvaliacao());
+        stmt.setBigDecimal(5, filme.getValor());
         
         stmt.execute();
         
@@ -37,7 +39,7 @@ public class FilmeDAO {
     
      public ArrayList<Filme> selecionarFilme() throws SQLException{
         ArrayList<Filme> retorno = new ArrayList<>();
-        String sql = "SELECT ID, NOME, DATA_LANCAMENTO, GENERO, AVALIACAO FROM FILME";
+        String sql = "SELECT ID, NOME, DATA_LANCAMENTO, GENERO, AVALIACAO, VALOR FROM FILME";
         
         Connection con = new ConnectionFactory().getConnection();
         
@@ -52,7 +54,7 @@ public class FilmeDAO {
             f.setData_lancamento(rs.getDate("DATA_LANCAMENTO"));
             f.setGenero(rs.getString("GENERO"));
             f.setAvaliacao(rs.getInt("AVALIACAO"));
-
+            f.setValor(rs.getBigDecimal("VALOR"));
             
             retorno.add(f);
         }
@@ -61,7 +63,7 @@ public class FilmeDAO {
     }
      
      public void alterarFilme(Filme filme) throws SQLException{
-        String sql = "UPDATE FILME SET NOME = ?, DATA_LANCAMENTO = ?, GENERO = ?, AVALIACAO = ? WHERE ID = ?";
+        String sql = "UPDATE FILME SET NOME = ?, DATA_LANCAMENTO = ?, GENERO = ?, AVALIACAO = ?, VALOR = ? WHERE ID = ?";
         
         Connection con = new ConnectionFactory().getConnection();
         
@@ -71,8 +73,9 @@ public class FilmeDAO {
         stmt.setDate(2, filme.getData_lancamento());
         stmt.setString(3, filme.getGenero());
         stmt.setInt(4, filme.getAvaliacao());
+        stmt.setBigDecimal(5, filme.getValor());
         stmt.setInt(5, filme.getId());
-        
+
         stmt.execute();
         
         stmt.close();

@@ -19,10 +19,17 @@ public class Filme {
     Date data;
     String genero;
     int avaliacao;
-    BigDecimal preco;
+    BigDecimal valor;
 
-    public Filme(String nome, String genero, BigDecimal preco, Date data, int avaliacoes) {
+    public Filme(String nome, Date data, String genero, int avaliacao, BigDecimal valor) {
+        this.nome = nome;
+        this.data = data;
+        this.genero = genero;
+        this.avaliacao = avaliacao;
+        this.valor = valor;
     }
+
+    
 
     public Filme() {
     }
@@ -67,11 +74,11 @@ public class Filme {
         this.avaliacao = avaliacao;
     }
 
-    public void setPreco(BigDecimal preco) {
-        this.preco = preco;
+    public void setValor(BigDecimal valor) {
+        this.valor = valor;
     }
     
-     public BigDecimal getPreco() {
-         return preco;
+     public BigDecimal getValor() {
+         return valor;
     }
 }

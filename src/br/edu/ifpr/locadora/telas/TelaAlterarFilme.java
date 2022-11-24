@@ -192,7 +192,7 @@ public class TelaAlterarFilme extends javax.swing.JFrame {
         
         txtNewNome.setText(filmeSelect.getNome());
         txtNewGenero.setText(filmeSelect.getGenero());
-        txtNewPreco.setText(String.valueOf(filmeSelect.getPreco()));
+        txtNewPreco.setText(String.valueOf(filmeSelect.getValor()));
         txtNewDataLancamento.setText(String.valueOf(filmeSelect.getData_lancamento()));
         txtNewAvaliacoes.setText(String.valueOf(filmeSelect.getAvaliacao()));
     }//GEN-LAST:event_cmbAlterarFilmeActionPerformed
@@ -202,7 +202,7 @@ public class TelaAlterarFilme extends javax.swing.JFrame {
         
         filmeSelect.setNome(filmeSelect.getNome());
         filmeSelect.setGenero(filmeSelect.getGenero());
-        filmeSelect.setPreco(new BigDecimal(txtNewPreco.getText()));
+        filmeSelect.setValor(new BigDecimal(txtNewPreco.getText()));
         filmeSelect.setData_lancamento(Date.valueOf(txtNewDataLancamento.getText()));
         filmeSelect.setAvaliacao(filmeSelect.getAvaliacao());
         

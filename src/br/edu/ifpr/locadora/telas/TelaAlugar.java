@@ -229,15 +229,15 @@ public class TelaAlugar extends javax.swing.JFrame {
         
         lblNomeFilme.setText(filme.getNome());
         lblGeneroFilme.setText(filme.getGenero());
-        lblPrecoFilme.setText(String.valueOf(filme.getPreco()));
+        lblPrecoFilme.setText(String.valueOf(filme.getValor()));
         lblDataLancamentoFilme.setText(String.valueOf(filme.getData_lancamento()));
         lblAvaliacoesFilme.setText(String.valueOf(filme.getAvaliacao()));
         
         BigDecimal dinheiro = new BigDecimal(txtDinheiro.getText()); 
-        BigDecimal troco = dinheiro.subtract(filme.getPreco());
+        BigDecimal troco = dinheiro.subtract(filme.getValor());
         lblTrocoFilme.setText("R$ " + String.valueOf(troco));
         
-        if(dinheiro.compareTo(filme.getPreco()) == -1){
+        if(dinheiro.compareTo(filme.getValor()) == -1){
             JOptionPane.showMessageDialog(this, "Por favor, insira a quantidade correta de dinheiro.", "Alugar Filme",
                 JOptionPane.ERROR_MESSAGE);
                         lblTrocoFilme.setText("Ainda falta dinheiro!");
