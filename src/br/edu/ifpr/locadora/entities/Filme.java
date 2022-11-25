@@ -5,7 +5,6 @@
 package br.edu.ifpr.locadora.entities;
 
 import java.math.BigDecimal;
-import java.sql.Date;
 
 
 /**
@@ -16,12 +15,12 @@ public class Filme {
     
     int id;
     String nome;
-    Date data;
+    int data;
     String genero;
     int avaliacao;
     BigDecimal valor;
 
-    public Filme(String nome, Date data, String genero, int avaliacao, BigDecimal valor) {
+    public Filme(String nome, int data, String genero, int avaliacao, BigDecimal valor) {
         this.nome = nome;
         this.data = data;
         this.genero = genero;
@@ -50,11 +49,11 @@ public class Filme {
         this.nome = nome;
     }
 
-    public Date getData_lancamento() {
+    public int getData_lancamento() {
         return data;
     }
 
-    public void setData_lancamento(Date data_lancamento) {
+    public void setData_lancamento(int data_lancamento) {
         this.data = data_lancamento;
     }
 
@@ -80,5 +79,10 @@ public class Filme {
     
      public BigDecimal getValor() {
          return valor;
+    }
+     
+ @Override
+    public String toString() {
+        return getNome();
     }
 }

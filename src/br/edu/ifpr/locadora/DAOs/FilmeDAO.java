@@ -27,7 +27,7 @@ public class FilmeDAO {
         
         stmt.setString(1, filme.getNome());
         stmt.setString(2, filme.getGenero());
-        stmt.setDate(3, filme.getData_lancamento());
+        stmt.setInt(3, filme.getData_lancamento());
         stmt.setInt(4, filme.getAvaliacao());
         stmt.setBigDecimal(5, filme.getValor());
         
@@ -51,7 +51,7 @@ public class FilmeDAO {
             Filme f = new Filme();
             f.setId(rs.getInt("ID"));
             f.setNome(rs.getString("NOME"));
-            f.setData_lancamento(rs.getDate("DATA_LANCAMENTO"));
+            f.setData_lancamento(rs.getInt("DATA_LANCAMENTO"));
             f.setGenero(rs.getString("GENERO"));
             f.setAvaliacao(rs.getInt("AVALIACAO"));
             f.setValor(rs.getBigDecimal("VALOR"));
@@ -70,7 +70,7 @@ public class FilmeDAO {
         PreparedStatement stmt = con.prepareStatement(sql);
         
         stmt.setString(1, filme.getNome());
-        stmt.setDate(2, filme.getData_lancamento());
+        stmt.setInt(2, filme.getData_lancamento());
         stmt.setString(3, filme.getGenero());
         stmt.setInt(4, filme.getAvaliacao());
         stmt.setBigDecimal(5, filme.getValor());

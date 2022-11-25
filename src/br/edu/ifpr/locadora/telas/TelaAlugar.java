@@ -4,6 +4,7 @@
  */
 package br.edu.ifpr.locadora.telas;
 
+import br.edu.ifpr.locadora.DAOs.AluguelDAO;
 import br.edu.ifpr.locadora.DAOs.FilmeDAO;
 import br.edu.ifpr.locadora.entities.Aluguel;
 import br.edu.ifpr.locadora.entities.Filme;
@@ -12,8 +13,8 @@ import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.sql.Date;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -72,9 +73,20 @@ public class TelaAlugar extends javax.swing.JFrame {
 
         jLabel1.setText("Por favor, selecione um filme:");
 
+        cmbFilme.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbFilmeActionPerformed(evt);
+            }
+        });
+
         txtDinheiro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtDinheiroActionPerformed(evt);
+            }
+        });
+        txtDinheiro.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtDinheiroKeyReleased(evt);
             }
         });
 
@@ -226,13 +238,8 @@ public class TelaAlugar extends javax.swing.JFrame {
     private void btnAlugarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlugarActionPerformed
         Filme filme = (Filme) cmbFilme.getSelectedItem();
         Aluguel aluguel = new Aluguel();
-        
-        lblNomeFilme.setText(filme.getNome());
-        lblGeneroFilme.setText(filme.getGenero());
-        lblPrecoFilme.setText(String.valueOf(filme.getValor()));
-        lblDataLancamentoFilme.setText(String.valueOf(filme.getData_lancamento()));
-        lblAvaliacoesFilme.setText(String.valueOf(filme.getAvaliacao()));
-        
+        AluguelDAO dao = new AluguelDAO(); 
+  
         BigDecimal dinheiro = new BigDecimal(txtDinheiro.getText()); 
         BigDecimal troco = dinheiro.subtract(filme.getValor());
         lblTrocoFilme.setText("R$ " + String.valueOf(troco));
@@ -247,7 +254,8 @@ public class TelaAlugar extends javax.swing.JFrame {
         else{
             aluguel.setUsuario(UsuarioEstatico.usuario);
             aluguel.setFilme(filme);
-
+            aluguel.setValor(filme.getValor());
+            
             long millis = System.currentTimeMillis();
             Date data_inicio = new Date(millis);
             
@@ -255,11 +263,48 @@ public class TelaAlugar extends javax.swing.JFrame {
             anoFormato.format(data_inicio);
             
             aluguel.setData_inicio(data_inicio);
-
+            
+            Calendar c = Calendar.getInstance();
+            c.add(Calendar.DAY_OF_MONTH, 7);
+            Date data = new Date(c.getTimeInMillis());
+            anoFormato.format(data);
+            
+            aluguel.setData_fim(data);
+            
+            try {
+                dao.alugar(aluguel);
+            } catch (SQLException ex) {
+                Logger.getLogger(TelaAlugar.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            JOptionPane.showMessageDialog(this, "Obrigado por alugar conosco!");
         }
         
         
     }//GEN-LAST:event_btnAlugarActionPerformed
+
+    private void cmbFilmeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbFilmeActionPerformed
+        Filme filme = (Filme) cmbFilme.getSelectedItem();
+        
+        lblNomeFilme.setText(filme.getNome());
+        lblGeneroFilme.setText(filme.getGenero());
+        lblPrecoFilme.setText(String.valueOf(filme.getValor()));
+        lblDataLancamentoFilme.setText(String.valueOf(filme.getData_lancamento()));
+        lblAvaliacoesFilme.setText(String.valueOf(filme.getAvaliacao()));
+    }//GEN-LAST:event_cmbFilmeActionPerformed
+
+    private void txtDinheiroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDinheiroKeyReleased
+        Filme filme = (Filme) cmbFilme.getSelectedItem();
+        BigDecimal dinheiro = new BigDecimal(txtDinheiro.getText()); 
+        BigDecimal troco = dinheiro.subtract(filme.getValor());
+        
+        if(dinheiro.compareTo(filme.getValor()) == -1){
+            lblTrocoFilme.setText("Falta dinheiro");
+        } else{
+            lblTrocoFilme.setText("R$ " + String.valueOf(troco));
+
+        }
+    }//GEN-LAST:event_txtDinheiroKeyReleased
 
     /**
      * @param args the command line arguments
