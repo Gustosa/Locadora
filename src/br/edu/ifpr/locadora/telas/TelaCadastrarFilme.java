@@ -151,14 +151,14 @@ public class TelaCadastrarFilme extends javax.swing.JFrame {
         String avaliacao = txtAvaliacoes.getText();
         
         int avaliacoes = parseInt(avaliacao);
-        long data = parseLong(dataLancamento);
-        Date date = new Date(data);
+        int data = Integer.parseInt(dataLancamento);
+        
         
         SimpleDateFormat anoFormato = new SimpleDateFormat("yyyy");
-            anoFormato.format(date);
+            anoFormato.format(data);
             
         
-        Filme filme = new Filme(nome, date, genero, avaliacoes, valor );
+        Filme filme = new Filme(nome, data, genero, avaliacoes, valor );
         FilmeDAO dao = new FilmeDAO();
         
         try {

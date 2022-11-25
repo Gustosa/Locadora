@@ -203,7 +203,7 @@ public class TelaAlterarFilme extends javax.swing.JFrame {
         filmeSelect.setNome(filmeSelect.getNome());
         filmeSelect.setGenero(filmeSelect.getGenero());
         filmeSelect.setValor(new BigDecimal(txtNewPreco.getText()));
-        filmeSelect.setData_lancamento(Date.valueOf(txtNewDataLancamento.getText()));
+        filmeSelect.setData_lancamento(Integer.parseInt(txtNewDataLancamento.getText()));
         filmeSelect.setAvaliacao(filmeSelect.getAvaliacao());
         
         FilmeDAO dao = new FilmeDAO();

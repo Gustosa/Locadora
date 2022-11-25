@@ -8,6 +8,7 @@ import br.edu.ifpr.locadora.entities.Aluguel;
 import br.edu.ifpr.locadora.entities.Filme;
 import br.edu.ifpr.locadora.entities.Usuario;
 import br.edu.ifpr.locadora.factories.ConnectionFactory;
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,17 +21,17 @@ import java.util.ArrayList;
  */
 public class AluguelDAO {
     public void alugar(Aluguel aluguel) throws SQLException{
-        String sql = "INSERT INTO ALUGUEL (ID, DATA_INICIO, DATA_FIM, USUARIO_LOGIN, FILME_ID) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO ALUGUEL (DATA_INICIO, DATA_FIM, USUARIO_LOGIN, FILME_ID, VALOR) VALUES ( ?, ?, ?, ?, ?)";
         
         Connection con = new ConnectionFactory().getConnection();
         
         PreparedStatement stmt = con.prepareStatement(sql);
         
-        stmt.setInt(1, aluguel.getId());
-        stmt.setDate(2, aluguel.getData_inicio());
-        stmt.setDate(3, aluguel.getData_fim());
-        stmt.setString(4, aluguel.getUsuario().getLogin());
-        stmt.setInt(5, aluguel.getFilme().getId());
+        stmt.setDate(1, aluguel.getData_inicio());
+        stmt.setDate(2, aluguel.getData_fim());
+        stmt.setString(3, aluguel.getUsuario().getLogin());
+        stmt.setInt(4, aluguel.getFilme().getId());
+        stmt.setBigDecimal(5, aluguel.getFilme().getValor());
         
         stmt.execute();
         
@@ -40,7 +41,7 @@ public class AluguelDAO {
     
     public ArrayList<Aluguel> selecionarAluguel() throws SQLException{
         ArrayList<Aluguel> retorno = new ArrayList<>();
-        String sql = "SELECT U.LOGIN, F.ID, A.ID, A.DATA_INICIO, A.DATA_FIM, A.USUARIO_LOGIN, A.FILME_ID "
+        String sql = "SELECT U.LOGIN, F.ID, A.ID, A.DATA_INICIO, A.DATA_FIM, A.USUARIO_LOGIN, A.FILME_ID, A.VALOR "
                 + "FROM ALUGUEL AS A "
                 + "INNER JOIN USUARIO AS U ON A.USUARIO_LOGIN = U.LOGIN "
                 + "INNER JOIN FILME AS F ON A.FILME_ID = F.ID";
@@ -54,17 +55,18 @@ public class AluguelDAO {
         while(rs.next() == true){
             Usuario u = new Usuario();
             Filme f = new Filme();
-            Aluguel l = new Aluguel();
+            Aluguel a = new Aluguel();
             
             u.setLogin(rs.getString("LOGIN"));
             f.setId((rs.getInt("ID")));
-            l.setId(rs.getInt("ID"));
-            l.setData_inicio(rs.getDate("DATA_INICIO"));
-            l.setData_fim( rs.getDate("DATA_FIM"));
-            l.setUsuario(u);
-            l.setFilme(f);
+            a.setId(rs.getInt("ID"));
+            a.setData_inicio(rs.getDate("DATA_INICIO"));
+            a.setData_fim( rs.getDate("DATA_FIM"));
+            a.setUsuario(u);
+            a.setFilme(f);
+            a.setValor(f.getValor());
             
-            retorno.add(l);
+            retorno.add(a);
         }
         
         return retorno;

@@ -4,6 +4,7 @@
  */
 package br.edu.ifpr.locadora.entities;
 
+import java.math.BigDecimal;
 import java.sql.Date;
 
 /**
@@ -15,6 +16,7 @@ public class Aluguel {
     int id;
     Usuario usuario;
     Filme filme;
+    BigDecimal valor;
     Date data_inicio;
     Date data_fim;
 
@@ -41,7 +43,15 @@ public class Aluguel {
     public void setFilme(Filme filme) {
         this.filme = filme;
     }
+    
+    public BigDecimal getValor() {
+        return valor;
+    }
 
+    public void setValor(BigDecimal valor) {
+        this.valor = valor;
+    }
+    
     public Date getData_inicio() {
         return data_inicio;
     }
