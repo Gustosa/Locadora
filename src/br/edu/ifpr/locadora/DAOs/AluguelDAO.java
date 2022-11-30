@@ -7,8 +7,8 @@ package br.edu.ifpr.locadora.DAOs;
 import br.edu.ifpr.locadora.entities.Aluguel;
 import br.edu.ifpr.locadora.entities.Filme;
 import br.edu.ifpr.locadora.entities.Usuario;
+import br.edu.ifpr.locadora.entities.UsuarioEstatico;
 import br.edu.ifpr.locadora.factories.ConnectionFactory;
-import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -71,6 +71,38 @@ public class AluguelDAO {
         
         return retorno;
     }
-
+    public ArrayList<Aluguel> adicionarDataModel(int ano, Usuario usuario) throws SQLException {
+        ArrayList<Aluguel> retorno = new ArrayList<>();
+        
+        String sql = "SELECT U.LOGIN, F.ID, A.ID, A.DATA_INICIO, A.DATA_FIM, A.USUARIO_LOGIN, A.FILME_ID, A.VALOR "
+                + "FROM ALUGUEL AS A "
+                + "INNER JOIN USUARIO AS U ON A.USUARIO_LOGIN = U.LOGIN "
+                + "INNER JOIN FILME AS F ON A.FILME_ID = F.ID WHERE year(DATA) = ? and U.LOGIN = ?"; 
+        
+        Connection con = new ConnectionFactory().getConnection();
+        PreparedStatement stmt = con.prepareStatement(sql);
+        
+        stmt.setInt(1, ano);
+        
+        ResultSet rs = stmt.executeQuery();
+        
+        while(rs.next() == true){
+            Produto p = new Produto();
+            Venda v = new Venda();
+            ProdutoVenda pv = new ProdutoVenda();
+            
+            p.setId(rs.getInt("ID_PRODUTO"));
+            p.setNome(rs.getString("NOME"));
+            p.setPreco(rs.getBigDecimal("PRECO"));
+            v.setId(rs.getInt("ID_VENDA"));
+            v.setData(rs.getDate("DATA").getTime());
+            pv.setProduto(p);
+            pv.setVenda(v);
+            pv.setQuantidade(rs.getInt("QUANTIDADE"));
+            
+            retorno.add(pv);
+        }
+        return retorno;
+    }
 }
 
