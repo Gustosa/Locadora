@@ -39,6 +39,7 @@ public class MenuAdm extends javax.swing.JFrame {
         btnCadastrarFilme = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Menu Administrador");
 
         btnAlterarFilme.setText("Alterar Filme");
         btnAlterarFilme.addActionListener(new java.awt.event.ActionListener() {
@@ -138,6 +139,7 @@ public class MenuAdm extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAlterarFilmeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarFilmeActionPerformed
@@ -165,7 +167,12 @@ public class MenuAdm extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRemoverFilmeActionPerformed
 
     private void btnHistoricoGeralActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistoricoGeralActionPerformed
-        TelaHistoricoGeral tela = new TelaHistoricoGeral();
+        TelaHistoricoAdm tela = null;
+        try {
+            tela = new TelaHistoricoAdm();
+        } catch (SQLException ex) {
+            Logger.getLogger(MenuAdm.class.getName()).log(Level.SEVERE, null, ex);
+        }
         tela.setVisible(true);
         
         this.setVisible(false);

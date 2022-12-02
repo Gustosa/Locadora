@@ -64,8 +64,6 @@ public class TelaLogin extends javax.swing.JFrame {
         bemVindolbl.setFont(new java.awt.Font("Liberation Sans", 0, 24)); // NOI18N
         bemVindolbl.setText("Bem vindo(a)!");
 
-        txtSenha.setText("jPasswordField1");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -118,6 +116,7 @@ public class TelaLogin extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed

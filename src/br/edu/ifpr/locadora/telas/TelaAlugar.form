@@ -28,7 +28,7 @@
               <EmptySpace min="-2" pref="281" max="-2" attributes="0"/>
               <Component id="btnAlugar" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
-              <Component id="jButton2" min="-2" max="-2" attributes="0"/>
+              <Component id="btnVoltar" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
           </Group>
           <Group type="102" attributes="0">
@@ -51,12 +51,12 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="txtDinheiro" min="-2" pref="81" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="lblAvaliacoesFilme" min="-2" pref="222" max="-2" attributes="0"/>
                           <Group type="102" attributes="0">
                               <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="lblTrocoFilme" min="-2" pref="89" max="-2" attributes="0"/>
+                              <Component id="lblTrocoFilme" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -142,7 +142,7 @@
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jButton2" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnVoltar" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -213,10 +213,13 @@
         <Property name="text" type="java.lang.String" value="O filme ficar&#xe1; alugado durante uma semana!"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton2">
+    <Component class="javax.swing.JButton" name="btnVoltar">
       <Properties>
         <Property name="text" type="java.lang.String" value="Voltar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnVoltarActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="lblDataLancamentoFilme">
     </Component>

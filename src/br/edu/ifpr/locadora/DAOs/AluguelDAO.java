@@ -39,12 +39,12 @@ public class AluguelDAO {
         con.close();
     }
     
-    public ArrayList<Aluguel> selecionarAluguel() throws SQLException{
+    public ArrayList<Aluguel> selecionarAluguelAdm() throws SQLException{
         ArrayList<Aluguel> retorno = new ArrayList<>();
-        String sql = "SELECT U.LOGIN, F.ID, A.ID, A.DATA_INICIO, A.DATA_FIM, A.USUARIO_LOGIN, A.FILME_ID, A.VALOR "
+        String sql = "SELECT U.LOGIN, F.ID as FILMEID, F.NOME, A.ID, A.DATA_INICIO, A.DATA_FIM, A.USUARIO_LOGIN, A.VALOR "
                 + "FROM ALUGUEL AS A "
                 + "INNER JOIN USUARIO AS U ON A.USUARIO_LOGIN = U.LOGIN "
-                + "INNER JOIN FILME AS F ON A.FILME_ID = F.ID";
+                + "INNER JOIN FILME AS F ON A.FILME_ID = F.ID ORDER BY U.LOGIN";
         
         Connection con = new ConnectionFactory().getConnection();
         
@@ -58,26 +58,69 @@ public class AluguelDAO {
             Aluguel a = new Aluguel();
             
             u.setLogin(rs.getString("LOGIN"));
-            f.setId((rs.getInt("ID")));
+            f.setId((rs.getInt("FILMEID")));
+            f.setNome(rs.getString("NOME"));
             a.setId(rs.getInt("ID"));
             a.setData_inicio(rs.getDate("DATA_INICIO"));
             a.setData_fim( rs.getDate("DATA_FIM"));
             a.setUsuario(u);
             a.setFilme(f);
-            a.setValor(f.getValor());
+            a.setValor(rs.getBigDecimal("VALOR"));
+            
             
             retorno.add(a);
         }
         
         return retorno;
     }
-    public ArrayList<Aluguel> adicionarDataModel(int ano, Usuario usuario) throws SQLException {
+    
+    public ArrayList<Aluguel> selecionarAluguelUsuario(Usuario usuario) throws SQLException{
         ArrayList<Aluguel> retorno = new ArrayList<>();
-        
-        String sql = "SELECT U.LOGIN, F.ID, A.ID, A.DATA_INICIO, A.DATA_FIM, A.USUARIO_LOGIN, A.FILME_ID, A.VALOR "
+        String sql = "SELECT U.LOGIN, F.ID as FILMEID, F.NOME, A.ID, A.DATA_INICIO, A.DATA_FIM, A.VALOR "
                 + "FROM ALUGUEL AS A "
                 + "INNER JOIN USUARIO AS U ON A.USUARIO_LOGIN = U.LOGIN "
-                + "INNER JOIN FILME AS F ON A.FILME_ID = F.ID WHERE year(DATA) = ? and U.LOGIN = ?"; 
+                + "INNER JOIN FILME AS F ON A.FILME_ID = F.ID "
+                + "WHERE A.USUARIO_LOGIN = ?";
+        
+        Connection con = new ConnectionFactory().getConnection();
+        
+        PreparedStatement stmt = con.prepareStatement(sql);
+        
+        stmt.setString(1, usuario.getLogin());
+        
+        ResultSet rs = stmt.executeQuery();
+        
+        
+        while(rs.next() == true){
+            Usuario u = new Usuario();
+            Filme f = new Filme();
+            Aluguel a = new Aluguel();
+            
+            u.setLogin(usuario.getLogin());
+            f.setId((rs.getInt("FILMEID")));
+            f.setNome(rs.getString("NOME"));
+            a.setId(rs.getInt("ID"));
+            a.setData_inicio(rs.getDate("DATA_INICIO"));
+            a.setData_fim( rs.getDate("DATA_FIM"));
+            a.setFilme(f);
+            a.setValor(rs.getBigDecimal("VALOR"));
+            a.setUsuario(u);
+            
+            retorno.add(a);
+        }
+        
+        return retorno;
+    }
+    
+    public ArrayList<Aluguel> FiltrarAnoAdm(int ano) throws SQLException {
+        
+        ArrayList<Aluguel> retorno = new ArrayList<>();
+        
+        String sql = "SELECT U.LOGIN, F.ID as FILMEID, F.NOME, A.ID, A.DATA_INICIO, A.DATA_FIM, A.USUARIO_LOGIN, A.VALOR "
+                + "FROM ALUGUEL AS A "
+                + "INNER JOIN USUARIO AS U ON A.USUARIO_LOGIN = U.LOGIN "
+                + "INNER JOIN FILME AS F ON A.FILME_ID = F.ID "
+                + "WHERE YEAR(DATA_INICIO) = ? ORDER BY U.LOGIN";
         
         Connection con = new ConnectionFactory().getConnection();
         PreparedStatement stmt = con.prepareStatement(sql);
@@ -87,20 +130,95 @@ public class AluguelDAO {
         ResultSet rs = stmt.executeQuery();
         
         while(rs.next() == true){
-            Produto p = new Produto();
-            Venda v = new Venda();
-            ProdutoVenda pv = new ProdutoVenda();
+            Usuario u = new Usuario();
+            Filme f = new Filme();
+            Aluguel a = new Aluguel();
             
-            p.setId(rs.getInt("ID_PRODUTO"));
-            p.setNome(rs.getString("NOME"));
-            p.setPreco(rs.getBigDecimal("PRECO"));
-            v.setId(rs.getInt("ID_VENDA"));
-            v.setData(rs.getDate("DATA").getTime());
-            pv.setProduto(p);
-            pv.setVenda(v);
-            pv.setQuantidade(rs.getInt("QUANTIDADE"));
+            u.setLogin(rs.getString("LOGIN"));
+            f.setId((rs.getInt("FILMEID")));
+            f.setNome(rs.getString("NOME"));
+            a.setId(rs.getInt("ID"));
+            a.setData_inicio(rs.getDate("DATA_INICIO"));
+            a.setData_fim( rs.getDate("DATA_FIM"));
+            a.setFilme(f);
+            a.setValor(rs.getBigDecimal("VALOR"));
+            a.setUsuario(u);
             
-            retorno.add(pv);
+            retorno.add(a);
+        }
+        return retorno;
+    }
+    
+    public ArrayList<Aluguel> FiltrarUsuarioAdm(String usuario) throws SQLException {
+        
+        ArrayList<Aluguel> retorno = new ArrayList<>();
+        
+        String sql = "SELECT U.LOGIN, F.ID as FILMEID, F.NOME, A.ID, A.DATA_INICIO, A.DATA_FIM, A.USUARIO_LOGIN, A.VALOR "
+                + "FROM ALUGUEL AS A "
+                + "INNER JOIN USUARIO AS U ON A.USUARIO_LOGIN = U.LOGIN "
+                + "INNER JOIN FILME AS F ON A.FILME_ID = F.ID "
+                + "WHERE U.LOGIN = ? ORDER BY U.LOGIN";
+        
+        Connection con = new ConnectionFactory().getConnection();
+        PreparedStatement stmt = con.prepareStatement(sql);
+        
+        stmt.setString(1, usuario);
+        
+        ResultSet rs = stmt.executeQuery();
+        
+        while(rs.next() == true){
+            Usuario u = new Usuario();
+            Filme f = new Filme();
+            Aluguel a = new Aluguel();
+            
+            u.setLogin(rs.getString("LOGIN"));
+            f.setId((rs.getInt("FILMEID")));
+            f.setNome(rs.getString("NOME"));
+            a.setId(rs.getInt("ID"));
+            a.setData_inicio(rs.getDate("DATA_INICIO"));
+            a.setData_fim( rs.getDate("DATA_FIM"));
+            a.setFilme(f);
+            a.setValor(rs.getBigDecimal("VALOR"));
+            a.setUsuario(u);
+            
+            retorno.add(a);
+        }
+        return retorno;
+    }
+    
+    public ArrayList<Aluguel> FiltrarFilmeAdm(String filme) throws SQLException {
+        
+        ArrayList<Aluguel> retorno = new ArrayList<>();
+        
+        String sql = "SELECT U.LOGIN, F.ID as FILMEID, F.NOME, A.ID, A.DATA_INICIO, A.DATA_FIM, A.USUARIO_LOGIN, A.VALOR "
+                + "FROM ALUGUEL AS A "
+                + "INNER JOIN USUARIO AS U ON A.USUARIO_LOGIN = U.LOGIN "
+                + "INNER JOIN FILME AS F ON A.FILME_ID = F.ID "
+                + "WHERE F.NOME = ? ORDER BY U.LOGIN";
+        
+        Connection con = new ConnectionFactory().getConnection();
+        PreparedStatement stmt = con.prepareStatement(sql);
+        
+        stmt.setString(1, filme);
+        
+        ResultSet rs = stmt.executeQuery();
+        
+        while(rs.next() == true){
+            Usuario u = new Usuario();
+            Filme f = new Filme();
+            Aluguel a = new Aluguel();
+            
+            u.setLogin(rs.getString("LOGIN"));
+            f.setId((rs.getInt("FILMEID")));
+            f.setNome(rs.getString("NOME"));
+            a.setId(rs.getInt("ID"));
+            a.setData_inicio(rs.getDate("DATA_INICIO"));
+            a.setData_fim( rs.getDate("DATA_FIM"));
+            a.setFilme(f);
+            a.setValor(rs.getBigDecimal("VALOR"));
+            a.setUsuario(u);
+            
+            retorno.add(a);
         }
         return retorno;
     }
