@@ -174,11 +174,6 @@ public class TelaRemoverFilme extends javax.swing.JFrame {
         }
         
         JOptionPane.showMessageDialog(this, "Filme removido! ");
-        
-        MenuAdm tela = new MenuAdm();
-        tela.setVisible(true);
-        
-        this.setVisible(false);
     }//GEN-LAST:event_btnRemoverActionPerformed
 
     private void cmbRemoverFilmeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbRemoverFilmeActionPerformed

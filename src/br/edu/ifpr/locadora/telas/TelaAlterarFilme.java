@@ -199,17 +199,18 @@ public class TelaAlterarFilme extends javax.swing.JFrame {
 
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
         Filme filmeSelect = (Filme) cmbAlterarFilme.getSelectedItem();
-        
-        filmeSelect.setNome(filmeSelect.getNome());
-        filmeSelect.setGenero(filmeSelect.getGenero());
-        filmeSelect.setValor(new BigDecimal(txtNewPreco.getText()));
-        filmeSelect.setData_lancamento(Integer.parseInt(txtNewDataLancamento.getText()));
-        filmeSelect.setAvaliacao(filmeSelect.getAvaliacao());
-        
+        Filme filme = new Filme();
         FilmeDAO dao = new FilmeDAO();
         
+        filme.setId(filmeSelect.getId());
+        filme.setNome(txtNewNome.getText());
+        filme.setGenero(txtNewGenero.getText());
+        filme.setValor(new BigDecimal(txtNewPreco.getText()));
+        filme.setData_lancamento(Integer.parseInt(txtNewDataLancamento.getText()));
+        filme.setAvaliacao(Integer.parseInt(txtNewAvaliacoes.getText()));
+        
         try {
-            dao.alterarFilme(filmeSelect);
+            dao.alterarFilme(filme);
         } catch (SQLException ex) {
             Logger.getLogger(TelaAlterarFilme.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -221,11 +222,6 @@ public class TelaAlterarFilme extends javax.swing.JFrame {
             txtNewAvaliacoes.setText("");
             
             JOptionPane.showMessageDialog(this, "Filme alterado!");
-        
-            MenuAdm tela = new MenuAdm();
-            tela.setVisible(true);
-        
-            this.setVisible(false);
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     /**

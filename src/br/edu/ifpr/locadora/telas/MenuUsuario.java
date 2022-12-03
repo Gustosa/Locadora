@@ -193,9 +193,11 @@ public class MenuUsuario extends javax.swing.JFrame {
             lblFilmePromocao.setText(promocao.getFilme().getNome());
             lblDesconto.setText(String.valueOf(promocao.getDesconto()) + "%");
 
-            BigDecimal valorDesconto = promocao.getFilme().getValor().multiply(new BigDecimal(promocao.getDesconto() / 100));
-            System.out.print(valorDesconto);
-            lblPrecoDesconto.setText(String.valueOf(valorDesconto));
+            BigDecimal valor = promocao.getFilme().getValor();
+            BigDecimal desconto = new BigDecimal(promocao.getDesconto());
+            BigDecimal d = desconto.divide(new BigDecimal("100"));
+            BigDecimal valorDesconto = valor.multiply(d);
+            lblPrecoDesconto.setText(String.valueOf(valorDesconto) + " R$");
         } 
         
         else {

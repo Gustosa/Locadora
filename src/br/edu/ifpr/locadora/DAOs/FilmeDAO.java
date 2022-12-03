@@ -74,7 +74,7 @@ public class FilmeDAO {
         stmt.setString(3, filme.getGenero());
         stmt.setInt(4, filme.getAvaliacao());
         stmt.setBigDecimal(5, filme.getValor());
-        stmt.setInt(5, filme.getId());
+        stmt.setInt(6, filme.getId());
 
         stmt.execute();
         
