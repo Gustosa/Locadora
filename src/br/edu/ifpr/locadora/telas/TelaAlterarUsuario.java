@@ -162,9 +162,9 @@ public class TelaAlterarUsuario extends javax.swing.JFrame {
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
         Usuario usuarioSelect = (Usuario) cmbAlterarUsuario.getSelectedItem();
         
-        usuarioSelect.setNome(usuarioSelect.getNome());
-        usuarioSelect.setLogin(usuarioSelect.getLogin());
-        usuarioSelect.setSenha(usuarioSelect.getSenha());
+        usuarioSelect.setNome(txtNewNome.getText());
+        usuarioSelect.setLogin(txtNewLogin.getText());
+        usuarioSelect.setSenha(txtNewSenha.getText());
         
         UsuarioDAO dao = new UsuarioDAO();
         
@@ -179,6 +179,7 @@ public class TelaAlterarUsuario extends javax.swing.JFrame {
         txtNewSenha.setText("");
 
         JOptionPane.showMessageDialog(this, "Usuário alterado!");   
+
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     /**
