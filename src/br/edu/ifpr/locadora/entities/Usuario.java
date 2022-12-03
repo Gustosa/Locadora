@@ -10,6 +10,7 @@ package br.edu.ifpr.locadora.entities;
  */
 public class Usuario {
     
+    int id;
     String login;
     String nome;
     String senha;
@@ -62,5 +63,8 @@ public class Usuario {
         this.isAdm = isAdm;
     }
 
-    
+    @Override
+    public String toString() {
+        return getNome();
+    }
 }
