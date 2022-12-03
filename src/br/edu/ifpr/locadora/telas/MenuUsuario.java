@@ -167,7 +167,12 @@ public class MenuUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAlugarActionPerformed
 
     private void btnHistoricoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistoricoActionPerformed
-        TelaHistoricoUsuario tela = new TelaHistoricoUsuario();
+        TelaHistoricoUsuario tela = null;
+        try {
+            tela = new TelaHistoricoUsuario();
+        } catch (SQLException ex) {
+            Logger.getLogger(MenuUsuario.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         tela.setVisible(true);
         this.setVisible(false);

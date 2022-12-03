@@ -16,17 +16,31 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author fabri
  */
-public class HistoricoUsuarioModel extends AbstractTableModel{
-    
-    String colunas[] = {"Filme", "Valor", "Data Inicial", "Data Final"};
+public class HistoricoAdmModel extends AbstractTableModel{
+
+    String colunas[] = { "Usuário", "Filme", "Valor", "Data Inicial", "Data Final"};
     AluguelDAO dao = new AluguelDAO();
     ArrayList<Aluguel> aluguel;
-    Usuario usuario = UsuarioEstatico.usuario;
     
-    public HistoricoUsuarioModel() throws SQLException{
-       aluguel = dao.selecionarAluguelUsuario(usuario);
+    public HistoricoAdmModel() throws SQLException{
+       aluguel = dao.selecionarAluguelAdm();
     }
-
+    
+    public void filtrarAno(int ano) throws SQLException{
+        aluguel = dao.FiltrarAnoAdm(ano);
+        fireTableDataChanged();
+    }
+    
+    public void filtrarUsuario(String usuario) throws SQLException{
+        aluguel = dao.FiltrarUsuarioAdm(usuario);
+        fireTableDataChanged();
+    }
+    
+    public void filtrarFilme(String filme) throws SQLException{
+        aluguel = dao.FiltrarFilmeAdm(filme);
+        fireTableDataChanged();
+    }
+    
     @Override
     public int getRowCount() {
         return aluguel.size();
@@ -40,20 +54,23 @@ public class HistoricoUsuarioModel extends AbstractTableModel{
     @Override
     public Object getValueAt(int linha, int coluna) {
         if(coluna == 0){
+            return aluguel.get(linha).getUsuario().getLogin();
+        } 
+        else if(coluna == 1){
             return aluguel.get(linha).getFilme().getNome();
         }
-        else if(coluna == 1){
+        else if(coluna == 2){
             return aluguel.get(linha).getValor();
         }
-        else if(coluna == 2){
+        else if(coluna == 3){
             return aluguel.get(linha).getData_inicio();
         }
-        else if(coluna == 3){
+        else if(coluna == 4){
             return aluguel.get(linha).getData_fim();
         }
         else{
             return null;
-        }
+        }    
     }
     
     @Override
@@ -61,4 +78,3 @@ public class HistoricoUsuarioModel extends AbstractTableModel{
         return colunas[index];
     }
 }
-
