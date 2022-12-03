@@ -174,12 +174,6 @@ public class TelaCadastrarFilme extends javax.swing.JFrame {
         txtAvaliacoes.setText("");
         
         JOptionPane.showMessageDialog(this, "Filme cadastrado!");
-        
-        MenuAdm tela = new MenuAdm();
-        tela.setVisible(true);
-        
-        this.setVisible(false);
-        
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void btnMenuAdmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuAdmActionPerformed

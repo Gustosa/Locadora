@@ -178,13 +178,7 @@ public class TelaAlterarUsuario extends javax.swing.JFrame {
         txtNewLogin.setText("");
         txtNewSenha.setText("");
 
-        JOptionPane.showMessageDialog(this, "Usuário alterado!");
-        
-        MenuAdm tela = new MenuAdm();
-        tela.setVisible(true);
-        
-        this.setVisible(false);
-            
+        JOptionPane.showMessageDialog(this, "Usuário alterado!");   
     }//GEN-LAST:event_btnAlterarActionPerformed
 
     /**

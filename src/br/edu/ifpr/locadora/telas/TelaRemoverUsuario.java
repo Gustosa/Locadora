@@ -155,11 +155,6 @@ public class TelaRemoverUsuario extends javax.swing.JFrame {
         }
         
         JOptionPane.showMessageDialog(this, "Usuário removido! ");
-        
-        MenuAdm tela = new MenuAdm();
-        tela.setVisible(true);
-        
-        this.setVisible(false);
     }//GEN-LAST:event_btnRemoverUsuarioActionPerformed
 
     private void btnMenuAdmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenuAdmActionPerformed
