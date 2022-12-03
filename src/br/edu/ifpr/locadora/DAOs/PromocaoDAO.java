@@ -67,4 +67,33 @@ public class PromocaoDAO {
         
         return promocao;
     }
+    
+    public Promocao selecionarFilmePromocao() throws SQLException{
+        Promocao promocao = new Promocao();
+        String sql = "SELECT F.ID AS FILME_ID, F.VALOR, P.ID, P.DESCONTO "
+                + "FROM PROMOCAO AS P "
+                + "LEFT JOIN FILME AS F ON P.FILME_ID = F.ID "
+                + "WHERE CURRENT DATE >= P.DATA_INICIO AND CURRENT DATE <= P.DATA_FIM";
+        
+         Connection con = new ConnectionFactory().getConnection();
+        
+        PreparedStatement stmt = con.prepareStatement(sql);
+                
+        ResultSet rs = stmt.executeQuery();
+        
+        while(rs.next() == true){
+            Filme f = new Filme();
+            Promocao p = new Promocao();
+            
+            f.setId(rs.getInt("FILME_ID"));
+            f.setValor(rs.getBigDecimal("VALOR"));
+            p.setId(rs.getInt("ID"));
+            p.setDesconto(rs.getInt("DESCONTO"));
+            p.setFilme(f);
+            
+            promocao = p;
+        }
+        
+        return promocao;
+    }
 }

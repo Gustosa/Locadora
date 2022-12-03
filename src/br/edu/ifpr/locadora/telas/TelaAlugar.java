@@ -6,8 +6,10 @@ package br.edu.ifpr.locadora.telas;
 
 import br.edu.ifpr.locadora.DAOs.AluguelDAO;
 import br.edu.ifpr.locadora.DAOs.FilmeDAO;
+import br.edu.ifpr.locadora.DAOs.PromocaoDAO;
 import br.edu.ifpr.locadora.entities.Aluguel;
 import br.edu.ifpr.locadora.entities.Filme;
+import br.edu.ifpr.locadora.entities.Promocao;
 import br.edu.ifpr.locadora.entities.UsuarioEstatico;
 import java.math.BigDecimal;
 import java.sql.SQLException;
@@ -155,7 +157,7 @@ public class TelaAlugar extends javax.swing.JFrame {
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(lblTrocoFilme, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                .addContainerGap(103, Short.MAX_VALUE))
+                .addContainerGap(104, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(86, 86, 86)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -177,8 +179,8 @@ public class TelaAlugar extends javax.swing.JFrame {
                 .addGroup(layout.createSequentialGroup()
                     .addGap(88, 88, 88)
                     .addComponent(lblNome, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 201, Short.MAX_VALUE)
-                    .addComponent(lblNomeFilme, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 200, Short.MAX_VALUE)
+                    .addComponent(lblNomeFilme, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(109, 109, 109)))
         );
         layout.setVerticalGroup(
@@ -202,9 +204,9 @@ public class TelaAlugar extends javax.swing.JFrame {
                         .addComponent(lblGeneroFilme, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(lblPrecoFilme, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblDataLancamentoFilme, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(lblDataLancamentoFilme, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(lblAvaliacoesFilme, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -282,6 +284,8 @@ public class TelaAlugar extends javax.swing.JFrame {
                 Logger.getLogger(TelaAlugar.class.getName()).log(Level.SEVERE, null, ex);
             }
             
+            txtDinheiro.setText("");
+        
             JOptionPane.showMessageDialog(this, "Obrigado por alugar conosco!");
         }
         
@@ -290,12 +294,28 @@ public class TelaAlugar extends javax.swing.JFrame {
 
     private void cmbFilmeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbFilmeActionPerformed
         Filme filme = (Filme) cmbFilme.getSelectedItem();
+        Promocao promocao = new Promocao();
+        PromocaoDAO dao = new PromocaoDAO();
+        
+        try {
+            promocao = dao.selecionarFilmePromocao();
+        } catch (SQLException ex) {
+            Logger.getLogger(TelaAlugar.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        if(promocao.getFilme().getId() == filme.getId()){
+            BigDecimal desconto = new BigDecimal(promocao.getDesconto());
+            BigDecimal d = desconto.divide(new BigDecimal("100"));
+            BigDecimal valorDesconto = filme.getValor().multiply(d);
+            
+            filme.setValor(valorDesconto);
+        }
         
         lblNomeFilme.setText(filme.getNome());
         lblGeneroFilme.setText(filme.getGenero());
-        lblPrecoFilme.setText(String.valueOf(filme.getValor()));
+        lblPrecoFilme.setText(String.valueOf(filme.getValor()) + " R$");
         lblDataLancamentoFilme.setText(String.valueOf(filme.getData_lancamento()));
-        lblAvaliacoesFilme.setText(String.valueOf(filme.getAvaliacao()));
+        lblAvaliacoesFilme.setText(String.valueOf(filme.getAvaliacao()) + "/10");
     }//GEN-LAST:event_cmbFilmeActionPerformed
 
     private void txtDinheiroKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDinheiroKeyReleased
