@@ -61,7 +61,6 @@ public class UsuarioDAO {
             usuarioExiste = u;
         }
         
-        System.out.print(usuarioExiste);
         return usuarioExiste;
     
     }

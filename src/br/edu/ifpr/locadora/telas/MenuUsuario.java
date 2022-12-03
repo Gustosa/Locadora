@@ -8,6 +8,7 @@ import br.edu.ifpr.locadora.DAOs.FilmeDAO;
 import br.edu.ifpr.locadora.DAOs.PromocaoDAO;
 import br.edu.ifpr.locadora.entities.Filme;
 import br.edu.ifpr.locadora.entities.Promocao;
+import java.math.BigDecimal;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -161,7 +162,7 @@ public class MenuUsuario extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(MenuUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         tela.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnAlugarActionPerformed
@@ -173,49 +174,73 @@ public class MenuUsuario extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(MenuUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         tela.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnHistoricoActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        ArrayList<Filme> filmes = new ArrayList();
-        FilmeDAO filminho = new FilmeDAO();
+        Promocao promocao = new Promocao();
+        PromocaoDAO dao = new PromocaoDAO();
+
         try {
-            filmes = filminho.selecionarFilme();
+            promocao = dao.selecionarPromocao();
         } catch (SQLException ex) {
             Logger.getLogger(MenuUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }
-        Random random = new Random();  
-        Filme filme = filmes.get(random.nextInt(filmes.size()));
+
+        if (promocao != null) {
+            lblFilmePromocao.setText(promocao.getFilme().getNome());
+            lblDesconto.setText(String.valueOf(promocao.getDesconto()) + "%");
+
+            BigDecimal valorDesconto = promocao.getFilme().getValor().multiply(new BigDecimal(promocao.getDesconto() / 100));
+            System.out.print(valorDesconto);
+            lblPrecoDesconto.setText(String.valueOf(valorDesconto));
+        } 
         
-        Promocao promocao = new Promocao();
-        promocao.setFilme(filme);
-        
-        long millis = System.currentTimeMillis();
-        Date data_inicio = new Date(millis);
+        else {
+            Promocao p = new Promocao();
+            ArrayList<Filme> filmes = new ArrayList();
+            FilmeDAO filminho = new FilmeDAO();
             
-        SimpleDateFormat anoFormato = new SimpleDateFormat("dd-mm-yyyy");
-        anoFormato.format(data_inicio);
-            
-        promocao.setData_inicio(data_inicio);
-        
-        Calendar c = Calendar.getInstance();
-        c.add(Calendar.DAY_OF_MONTH, 7);
-        Date data = new Date(c.getTimeInMillis());
-        anoFormato.format(data);
-            
-        promocao.setData_fim(data);
-        
-        if(promocao.getData_fim() == data_inicio){
-            PromocaoDAO dao = new PromocaoDAO();
             try {
-                dao.promocao(promocao);
+                filmes = filminho.selecionarFilme();
             } catch (SQLException ex) {
                 Logger.getLogger(MenuUsuario.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } else{
+          
+            Random random = new Random();
+            Filme filme = filmes.get(random.nextInt(filmes.size()));
+            p.setFilme(filme);
             
+            int max = 80;
+            int min = 20;
+            int desconto = random.nextInt((max - min) + 1) + min;
+            p.setDesconto(desconto);
+            
+            long millis = System.currentTimeMillis();
+            Date data_inicio = new Date(millis);
+            SimpleDateFormat anoFormato = new SimpleDateFormat("dd-mm-yyyy");
+            anoFormato.format(data_inicio);
+            p.setData_inicio(data_inicio);
+
+            Calendar c = Calendar.getInstance();
+            c.add(Calendar.DAY_OF_MONTH, 7);
+            Date data = new Date(c.getTimeInMillis());
+            anoFormato.format(data);
+            p.setData_fim(data);
+
+            try {
+                dao.promocao(p);
+            } catch (SQLException ex) {
+                Logger.getLogger(MenuUsuario.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            lblFilmePromocao.setText(p.getFilme().getNome());
+            lblDesconto.setText(String.valueOf(p.getDesconto()) + "%");
+
+            BigDecimal valorDesconto = p.getFilme().getValor().multiply(new BigDecimal(promocao.getDesconto() / 100));
+            lblPrecoDesconto.setText(String.valueOf(valorDesconto));
         }
     }//GEN-LAST:event_formWindowOpened
 

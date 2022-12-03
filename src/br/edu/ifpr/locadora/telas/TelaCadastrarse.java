@@ -131,7 +131,7 @@ public class TelaCadastrarse extends javax.swing.JFrame {
         String login = txtLogin.getText();
         String nome = txtNome.getText();
         String senha = txtSenha.getText();
-        boolean adm = false;
+        boolean adm = true;
 
         Usuario usuario = new Usuario(login, nome, senha, adm);
         UsuarioDAO dao = new UsuarioDAO();
