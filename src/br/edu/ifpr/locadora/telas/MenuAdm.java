@@ -179,7 +179,7 @@ public class MenuAdm extends javax.swing.JFrame {
     }//GEN-LAST:event_btnHistoricoGeralActionPerformed
 
     private void btnCadastarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastarUsuarioActionPerformed
-        TelaCadastrarse tela = new TelaCadastrarse();
+        CadastrarAdm tela = new CadastrarAdm();
         tela.setVisible(true);
         
         this.setVisible(false);
